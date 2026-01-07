@@ -16,9 +16,7 @@ This project is configured for Vercel deployment with the Next.js application lo
 
 #### Option 1: Using Vercel Configuration (Recommended)
 
-The repository includes:
-- A `vercel.json` configuration file that specifies build commands for the subdirectory
-- A root `package.json` with `"next"` in `devDependencies` for framework detection
+The repository includes a `vercel.json` configuration file that specifies custom build commands to install and build from the `nuclear-nextjs` subdirectory.
 
 Simply connect your repository to Vercel and it will deploy correctly.
 
