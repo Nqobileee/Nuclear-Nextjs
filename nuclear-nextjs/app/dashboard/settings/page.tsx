@@ -15,9 +15,9 @@ export default function SettingsPage() {
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl border border-gray-200 p-2">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
-            {[
-              { id: 'profile', label: 'Profile', icon: User },
-              { id: 'organization', label: 'Organization', icon: Building },
+              {[
+                { id: 'profile', label: 'Profile', icon: User },
+                { id: 'organization', label: 'Organization', icon: Building },
               { id: 'notifications', label: 'Notifications', icon: Bell },
               { id: 'security', label: 'Security', icon: Shield },
               { id: 'billing', label: 'Billing', icon: CreditCard },
@@ -28,17 +28,18 @@ export default function SettingsPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                  className={`w-full flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-lg transition-colors text-sm ${
                     activeTab === tab.id
                       ? 'bg-purple-50 text-purple-600'
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
-                  <span>{tab.label}</span>
+                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm lg:text-base">{tab.label}</span>
                 </button>
               );
             })}
+            </div>
           </div>
         </div>
 
