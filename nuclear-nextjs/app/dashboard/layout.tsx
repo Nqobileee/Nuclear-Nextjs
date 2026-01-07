@@ -43,6 +43,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter()
   const { user, logout } = useAuth()
 
+  // Mobile menu handlers
+  const openMobileMenu = () => setMobileMenuOpen(true)
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+  const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
+
   // Determine current page from pathname
   const getCurrentPage = (): DashboardPage => {
     if (pathname === '/dashboard') return 'dashboard'
@@ -81,7 +86,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {mobileMenuOpen && (
           <div 
             className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeMobileMenu}
           />
         )}
 
@@ -102,7 +107,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
           {/* Close button for mobile */}
           <button
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeMobileMenu}
             className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
           >
             <X className="w-5 h-5" />
@@ -175,7 +180,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Collapse Toggle - Hidden on mobile */}
         <button
-          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          onClick={toggleSidebarCollapse}
           className="hidden lg:flex absolute top-20 -right-3 w-6 h-6 bg-white border border-gray-200 rounded-full items-center justify-center hover:bg-gray-50 transition-colors z-10"
         >
           <ChevronLeft className={`w-4 h-4 transition-transform ${sidebarCollapsed ? 'rotate-180' : ''}`} />
@@ -189,7 +194,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Mobile Menu Button & Page Title */}
           <div className="flex items-center gap-3 min-w-0 flex-1 lg:flex-initial">
             <button
-              onClick={() => setMobileMenuOpen(true)}
+              onClick={openMobileMenu}
               className="lg:hidden p-2 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <Menu className="w-6 h-6" />

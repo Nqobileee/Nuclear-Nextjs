@@ -44,7 +44,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Content Area */}
-        <div className="col-span-3 bg-white rounded-xl border border-gray-200 p-8">
+        <div className="lg:col-span-3 bg-white rounded-xl border border-gray-200 p-4 sm:p-6 lg:p-8">
           {activeTab === 'profile' && (
             <div className="space-y-6">
               <div>

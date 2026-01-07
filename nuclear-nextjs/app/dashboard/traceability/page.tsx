@@ -238,9 +238,9 @@ export default function TraceabilityPage() {
                             Verify on Chain →
                           </button>
                         </div>
-                        <code className="text-xs text-green-400 font-mono break-all block">
+                        <div className="text-xs text-green-400 font-mono break-all">
                           {event.hash}
-                        </code>
+                        </div>
                       </div>
                     </div>
                   </div>
