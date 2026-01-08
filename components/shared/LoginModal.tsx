@@ -16,24 +16,38 @@ export function LoginModal({ isOpen, onClose, onLogin }: LoginModalProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
+  const { login, signUp } = useAuth();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccessMessage(null);
     setIsSubmitting(true);
 
     try {
-      const result = await login(email, password);
+      const result = isSignUp
+        ? await signUp(email, password)
+        : await login(email, password);
 
       if (result.success) {
-        setEmail('');
-        setPassword('');
-        onLogin();
+        if (isSignUp) {
+          setSuccessMessage('Account created! Please check your email to confirm.');
+          setEmail('');
+          setPassword('');
+        } else {
+          setEmail('');
+          setPassword('');
+          onLogin();
+        }
       } else {
-        setError(result.error || 'Login failed. Please try again.');
+        setError(result.error || (isSignUp ? 'Sign up failed.' : 'Login failed.') + ' Please try again.');
+        // If error suggests email verification needed, show gentle message
+        if (!isSignUp && result.error?.includes('Email not confirmed')) {
+          setError('Please verify your email address before logging in.');
+        }
       }
     } catch {
       setError('An unexpected error occurred. Please try again.');
@@ -135,6 +149,13 @@ export function LoginModal({ isOpen, onClose, onLogin }: LoginModalProps) {
                 <button type="button" className="text-sm text-purple-600 hover:text-purple-700 transition-colors">
                   Forgot password?
                 </button>
+              </div>
+            )}
+
+            {/* Success Message */}
+            {successMessage && (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-600">
+                {successMessage}
               </div>
             )}
 
