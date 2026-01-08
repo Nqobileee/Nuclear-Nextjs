@@ -9,11 +9,11 @@ export interface Shipment {
   statusColor: string
 }
 
-export type ShipmentStatus = 
-  | 'In Transit' 
-  | 'At Customs' 
-  | 'Dispatched' 
-  | 'Delivered' 
+export type ShipmentStatus =
+  | 'In Transit'
+  | 'At Customs'
+  | 'Dispatched'
+  | 'Delivered'
   | 'Pending'
 
 export interface ShipmentFilter {
@@ -29,3 +29,6 @@ export interface ShipmentStats {
   pendingCount: number
   urgentCount: number
 }
+
+export type SortCriteria = 'id' | 'isotope' | 'origin' | 'destination' | 'status' | 'eta'
+export type SortDirection = 'asc' | 'desc'

@@ -1,68 +1,66 @@
-'use client'
-
-import { 
-  Package, 
-  Clock, 
-  CheckCircle, 
-  TrendingUp, 
+import {
+  Package,
+  Clock,
+  CheckCircle,
+  TrendingUp,
   MapPin,
   Plus,
   Search,
   FileText,
   ArrowRight
 } from 'lucide-react'
-import { 
-  getDashboardStats, 
-  getRecentActivity, 
+import {
+  getDashboardStats,
+  getRecentActivity,
   getUpcomingDeliveries,
-  getComplianceAlerts 
-} from '@/controllers'
-import { getActiveShipments } from '@/controllers'
+  getComplianceAlerts,
+  getActiveShipments
+} from '@/lib/api'
 
-export default function DashboardPage() {
-  const currentDate = new Date().toLocaleDateString('en-US', { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+export default async function DashboardPage() {
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   })
 
-  const dashboardStats = getDashboardStats()
-  const recentActivity = getRecentActivity(5)
-  const upcomingDeliveries = getUpcomingDeliveries(4)
-  const complianceAlerts = getComplianceAlerts()
-  const activeShipments = getActiveShipments()
+  const dashboardStats = await getDashboardStats()
+  const recentActivity = await getRecentActivity(5)
+  const upcomingDeliveries = await getUpcomingDeliveries(4)
+  const complianceAlerts = await getComplianceAlerts()
+  const activeShipments = await getActiveShipments()
 
   const stats = [
-    { 
-      label: dashboardStats.activeShipments.label, 
-      value: dashboardStats.activeShipments.value, 
-      subtext: dashboardStats.activeShipments.subtext, 
-      icon: Package, 
+    {
+      label: dashboardStats.activeShipments.label,
+      value: dashboardStats.activeShipments.value,
+      subtext: dashboardStats.activeShipments.subtext,
+      icon: Package,
       color: 'from-blue-500 to-blue-600',
       textColor: 'text-blue-600'
     },
-    { 
-      label: dashboardStats.pendingRequests.label, 
-      value: dashboardStats.pendingRequests.value, 
-      subtext: dashboardStats.pendingRequests.subtext, 
-      icon: Clock, 
+    {
+      label: dashboardStats.pendingRequests.label,
+      value: dashboardStats.pendingRequests.value,
+      subtext: dashboardStats.pendingRequests.subtext,
+      icon: Clock,
       color: 'from-amber-500 to-amber-600',
       textColor: 'text-amber-600'
     },
-    { 
-      label: dashboardStats.complianceStatus.label, 
-      value: dashboardStats.complianceStatus.value, 
-      subtext: dashboardStats.complianceStatus.subtext, 
-      icon: CheckCircle, 
+    {
+      label: dashboardStats.complianceStatus.label,
+      value: dashboardStats.complianceStatus.value,
+      subtext: dashboardStats.complianceStatus.subtext,
+      icon: CheckCircle,
       color: 'from-green-500 to-green-600',
       textColor: 'text-green-600'
     },
-    { 
-      label: dashboardStats.monthlyTotal.label, 
-      value: dashboardStats.monthlyTotal.value, 
-      subtext: dashboardStats.monthlyTotal.subtext, 
-      icon: TrendingUp, 
+    {
+      label: dashboardStats.monthlyTotal.label,
+      value: dashboardStats.monthlyTotal.value,
+      subtext: dashboardStats.monthlyTotal.subtext,
+      icon: TrendingUp,
       color: 'from-purple-500 to-purple-600',
       textColor: 'text-purple-600'
     },
@@ -140,10 +138,10 @@ export default function DashboardPage() {
             <div className="absolute inset-0 opacity-20">
               <svg viewBox="0 0 800 400" className="w-full h-full">
                 {/* Africa outline simplified */}
-                <path 
-                  d="M 400,50 L 450,80 L 480,120 L 490,180 L 480,250 L 450,320 L 400,360 L 350,350 L 320,300 L 310,240 L 320,180 L 350,120 L 380,80 Z" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <path
+                  d="M 400,50 L 450,80 L 480,120 L 490,180 L 480,250 L 450,320 L 400,360 L 350,350 L 320,300 L 310,240 L 320,180 L 350,120 L 380,80 Z"
+                  fill="none"
+                  stroke="currentColor"
                   strokeWidth="2"
                 />
               </svg>
@@ -156,17 +154,16 @@ export default function DashboardPage() {
                 { top: '60%', left: '45%', status: 'active' },
                 { top: '40%', left: '50%', status: 'success' },
               ].map((pin, i) => (
-                <div 
+                <div
                   key={i}
                   className="absolute -translate-x-1/2 -translate-y-1/2"
                   style={{ top: pin.top, left: pin.left }}
                 >
-                  <MapPin 
-                    className={`w-8 h-8 ${
-                      pin.status === 'active' ? 'text-blue-600' :
-                      pin.status === 'warning' ? 'text-amber-600' :
-                      'text-green-600'
-                    }`}
+                  <MapPin
+                    className={`w-8 h-8 ${pin.status === 'active' ? 'text-blue-600' :
+                        pin.status === 'warning' ? 'text-amber-600' :
+                          'text-green-600'
+                      }`}
                     fill="currentColor"
                   />
                 </div>
@@ -241,23 +238,21 @@ export default function DashboardPage() {
           <div className="space-y-3">
             {complianceAlerts.length > 0 ? (
               complianceAlerts.map((alert) => (
-                <div 
-                  key={alert.id} 
-                  className={`flex items-start gap-3 p-4 rounded-lg ${
-                    alert.severity === 'warning' 
-                      ? 'bg-amber-50 border border-amber-200' 
+                <div
+                  key={alert.id}
+                  className={`flex items-start gap-3 p-4 rounded-lg ${alert.severity === 'warning'
+                      ? 'bg-amber-50 border border-amber-200'
                       : alert.severity === 'error'
-                      ? 'bg-red-50 border border-red-200'
-                      : 'bg-blue-50 border border-blue-200'
-                  }`}
+                        ? 'bg-red-50 border border-red-200'
+                        : 'bg-blue-50 border border-blue-200'
+                    }`}
                 >
-                  <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                    alert.severity === 'warning' 
-                      ? 'bg-amber-600' 
+                  <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${alert.severity === 'warning'
+                      ? 'bg-amber-600'
                       : alert.severity === 'error'
-                      ? 'bg-red-600'
-                      : 'bg-blue-600'
-                  }`}></div>
+                        ? 'bg-red-600'
+                        : 'bg-blue-600'
+                    }`}></div>
                   <div>
                     <p className="text-sm text-gray-900">{alert.title}</p>
                     <p className="text-xs text-gray-500 mt-1">{alert.description}</p>
