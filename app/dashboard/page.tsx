@@ -13,9 +13,12 @@ import {
   getDashboardStats,
   getRecentActivity,
   getUpcomingDeliveries,
+  getCompletedDeliveries,
   getComplianceAlerts,
   getActiveShipments
 } from '@/lib/api'
+import UpcomingDeliveries from '@/components/shared/UpcomingDeliveries'
+import RecentActivity from '@/components/shared/RecentActivity'
 
 export default async function DashboardPage() {
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -28,6 +31,7 @@ export default async function DashboardPage() {
   const dashboardStats = await getDashboardStats()
   const recentActivity = await getRecentActivity(5)
   const upcomingDeliveries = await getUpcomingDeliveries(4)
+  const completedDeliveries = await getCompletedDeliveries(24)
   const complianceAlerts = await getComplianceAlerts()
   const activeShipments = await getActiveShipments()
 
@@ -173,20 +177,10 @@ export default async function DashboardPage() {
         </div>
 
         {/* Recent Activity Feed */}
-        <div className="lg:col-span-2 bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
-          <h3 className="text-lg sm:text-xl mb-4">Recent Activity</h3>
-          <div className="space-y-4">
-            {recentActivity.map((activity) => (
-              <div key={activity.id} className="flex gap-3">
-                <div className="flex-shrink-0 w-2 h-2 bg-purple-600 rounded-full mt-2"></div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-900">{activity.event}</p>
-                  <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <RecentActivity 
+          initialActivities={recentActivity}
+          completedDeliveries={completedDeliveries}
+        />
       </div>
 
       {/* Active Shipments Table Preview */}
@@ -272,23 +266,9 @@ export default async function DashboardPage() {
         </div>
 
         {/* Upcoming Deliveries */}
-        <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
-          <h3 className="text-lg sm:text-xl mb-4">Upcoming Deliveries</h3>
-          <div className="space-y-3">
-            {upcomingDeliveries.map((delivery, index) => (
-              <div key={index} className="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                <div className="text-center flex-shrink-0">
-                  <div className="text-xs text-gray-500">{delivery.date}</div>
-                  <div className="text-sm">{delivery.time}</div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm">{delivery.isotope}</div>
-                  <div className="text-xs text-gray-500">{delivery.destination}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <UpcomingDeliveries 
+          initialDeliveries={upcomingDeliveries}
+        />
       </div>
     </div>
   )

@@ -15,8 +15,11 @@ export interface StatCard {
 }
 
 export interface Delivery {
+  id?: string
   date: string
   time: string
   isotope: string
   destination: string
+  status?: 'upcoming' | 'completed'
+  scheduled_datetime?: Date
 }

@@ -23,12 +23,16 @@ INSERT INTO public.activities (event, type, time) VALUES
 ('Compliance alert: License renewal due', 'alert', NOW() - INTERVAL '2 days'),
 ('Quality inspection approved for batch B-2024-001', 'approval', NOW() - INTERVAL '3 days');
 
--- 4. Deliveries (Upcoming)
+-- 4. Deliveries (Upcoming and some for testing)
 INSERT INTO public.deliveries (date, time, isotope, destination) VALUES 
-(CURRENT_DATE + 1, '14:30', 'Tc-99m', 'Memorial Hospital, NYC'),
-(CURRENT_DATE + 2, '09:00', 'I-131', 'Johns Hopkins, MD'),
-(CURRENT_DATE + 3, '16:45', 'Mo-99', 'Mayo Clinic, MN'),
-(CURRENT_DATE + 4, '08:30', 'Ga-68', 'Stanford Medical, CA');
+(CURRENT_DATE, '14:30', 'Tc-99m', 'Memorial Hospital, NYC'),
+(CURRENT_DATE, '18:00', 'F-18', 'City General Hospital, LA'),
+(CURRENT_DATE + 1, '09:00', 'I-131', 'Johns Hopkins, MD'),
+(CURRENT_DATE + 1, '15:30', 'Lu-177', 'Cleveland Clinic, OH'),
+(CURRENT_DATE + 2, '10:15', 'Mo-99', 'Mayo Clinic, MN'),
+(CURRENT_DATE + 2, '16:45', 'Ga-68', 'Stanford Medical, CA'),
+(CURRENT_DATE + 3, '08:30', 'Y-90', 'Massachusetts General, MA'),
+(CURRENT_DATE + 3, '13:00', 'Tc-99m', 'Houston Methodist, TX');
 
 -- 5. Permits (Sample)
 INSERT INTO public.permits (name, expiry_date, status) VALUES 
