@@ -7,6 +7,7 @@ import {
     Shipment,
     StatCard
 } from '@/models'
+import { combineDateAndTime } from '@/lib/dateUtils'
 
 // --- Data Fetching Functions ---
 
@@ -135,18 +136,10 @@ export async function getUpcomingDeliveries(limit: number = 4): Promise<Delivery
         return []
     }
     
-    // Filter out past deliveries and add scheduled_datetime
+    // Filter out past deliveries and add scheduled_datetime using utility function
     const upcomingDeliveries = (data as Delivery[])
         .map((delivery) => {
-            const deliveryDate = new Date(delivery.date)
-            const [hours, minutes] = delivery.time.split(':').map(Number)
-            const scheduledDateTime = new Date(
-                deliveryDate.getFullYear(),
-                deliveryDate.getMonth(),
-                deliveryDate.getDate(),
-                hours,
-                minutes
-            )
+            const scheduledDateTime = combineDateAndTime(delivery.date, delivery.time)
             
             return {
                 ...delivery,
@@ -177,18 +170,10 @@ export async function getCompletedDeliveries(hoursBack: number = 24): Promise<De
         return []
     }
     
-    // Filter to get only completed deliveries (past scheduled time)
+    // Filter to get only completed deliveries (past scheduled time) using utility function
     const completedDeliveries = (data as Delivery[])
         .map((delivery) => {
-            const deliveryDate = new Date(delivery.date)
-            const [hours, minutes] = delivery.time.split(':').map(Number)
-            const scheduledDateTime = new Date(
-                deliveryDate.getFullYear(),
-                deliveryDate.getMonth(),
-                deliveryDate.getDate(),
-                hours,
-                minutes
-            )
+            const scheduledDateTime = combineDateAndTime(delivery.date, delivery.time)
             
             return {
                 ...delivery,

@@ -63,12 +63,14 @@ export default function UpcomingDeliveries({
     <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
       <h3 className="text-lg sm:text-xl mb-4">Upcoming Deliveries</h3>
       <div className="space-y-3">
-        {deliveries.map((delivery, index) => {
+        {deliveries.map((delivery) => {
           const formattedDateTime = formatDeliveryDateTime(delivery.date, delivery.time)
+          // Generate a stable key from delivery properties
+          const deliveryKey = delivery.id || `${delivery.date}-${delivery.time}-${delivery.isotope}-${delivery.destination}`
           
           return (
             <div 
-              key={delivery.id || index} 
+              key={deliveryKey} 
               className="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <div className="text-center flex-shrink-0 min-w-[100px]">

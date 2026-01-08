@@ -7,12 +7,13 @@
  * @returns Formatted string like "Today, 14:30", "Tomorrow, 09:00", or "Friday, 16:45"
  */
 export function formatDeliveryDateTime(date: string | Date, time: string): string {
-  const deliveryDate = typeof date === 'string' ? new Date(date) : date
+  // Parse date string as UTC to avoid timezone issues
+  const deliveryDate = typeof date === 'string' ? new Date(date + 'T00:00:00Z') : date
   const now = new Date()
   
-  // Reset time parts to compare dates only
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const compareDate = new Date(deliveryDate.getFullYear(), deliveryDate.getMonth(), deliveryDate.getDate())
+  // Reset time parts to compare dates only (using UTC)
+  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+  const compareDate = new Date(Date.UTC(deliveryDate.getUTCFullYear(), deliveryDate.getUTCMonth(), deliveryDate.getUTCDate()))
   
   const diffDays = Math.floor((compareDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
   
@@ -37,18 +38,7 @@ export function formatDeliveryDateTime(date: string | Date, time: string): strin
  * @returns true if the delivery time has passed
  */
 export function isDeliveryPast(date: string | Date, time: string): boolean {
-  const deliveryDate = typeof date === 'string' ? new Date(date) : date
-  const [hours, minutes] = time.split(':').map(Number)
-  
-  // Create a Date object with the delivery date and time
-  const deliveryDateTime = new Date(
-    deliveryDate.getFullYear(),
-    deliveryDate.getMonth(),
-    deliveryDate.getDate(),
-    hours,
-    minutes
-  )
-  
+  const deliveryDateTime = combineDateAndTime(date, time)
   return new Date() > deliveryDateTime
 }
 
