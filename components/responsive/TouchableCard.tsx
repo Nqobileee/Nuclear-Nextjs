@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 
 interface TouchableCardProps {
   children: React.ReactNode
@@ -45,19 +46,20 @@ export function TouchableCard({
   
   if (href) {
     return (
-      <a 
+      <Link 
         href={href}
         className={cardClasses}
         onClick={onClick}
       >
         {children}
-      </a>
+      </Link>
     )
   }
   
   if (onClick) {
     return (
       <button 
+        type="button"
         onClick={onClick}
         className={`${cardClasses} w-full text-left`}
       >

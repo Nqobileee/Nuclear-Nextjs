@@ -514,17 +514,22 @@ export default function ProcurementPage() {
                 />
                 <div className="flex items-center gap-2 pt-2 border-t border-gray-200">
                   <button 
+                    type="button"
                     onClick={() => request.status === 'Quotes Received' && setView('quotes')}
                     className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm min-h-[44px]"
                   >
                     <Eye className="w-4 h-4" />
                     View
                   </button>
-                  <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm min-h-[44px]">
+                  <button 
+                    type="button"
+                    className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm min-h-[44px]"
+                  >
                     <Edit className="w-4 h-4" />
                     Edit
                   </button>
                   <button
+                    type="button"
                     className="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors flex items-center justify-center min-h-[44px]"
                     aria-label="Delete request"
                   >

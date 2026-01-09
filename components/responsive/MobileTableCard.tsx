@@ -47,6 +47,7 @@ export function MobileTableCard({
   if (onClick) {
     return (
       <button 
+        type="button"
         onClick={onClick}
         className={`${cardClasses} w-full text-left`}
       >
