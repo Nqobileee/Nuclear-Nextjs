@@ -1,6 +1,11 @@
 export default function ProcurementLoading() {
   return (
-    <div className="animate-pulse">
+    <div
+      className="animate-pulse"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading procurement"
+    >
       {/* Header Skeleton */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
         <div className="h-8 bg-gray-200 rounded w-64"></div>

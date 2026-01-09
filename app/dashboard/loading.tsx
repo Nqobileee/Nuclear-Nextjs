@@ -1,6 +1,11 @@
 export default function DashboardLoading() {
   return (
-    <div className="space-y-6 lg:space-y-8 animate-pulse">
+    <div
+      className="space-y-6 lg:space-y-8 animate-pulse"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading dashboard"
+    >
       {/* Welcome Banner Skeleton */}
       <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-4 sm:p-6 lg:p-8 h-32 sm:h-40"></div>
 
