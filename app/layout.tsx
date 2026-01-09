@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import { Providers } from './providers'
 
 export const metadata: Metadata = {
-  title: 'NuClear - Nuclear Supply Chain Management',
+  title: '⚛ NUCLEAR - Nuclear Supply Chain Management',
   description: 'Comprehensive nuclear supply chain management platform for radiopharmaceutical delivery',
   keywords: ['nuclear medicine', 'logistics', 'radiopharmaceutical', 'supply chain', 'compliance'],
   viewport: {
