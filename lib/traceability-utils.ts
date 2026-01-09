@@ -114,8 +114,10 @@ export async function verifyShipmentOnBlockchain(
 /**
  * Generate mock digital signature
  */
+const SIGNATURE_LENGTH = 64;
+
 function generateMockSignature(): string {
-  return Array.from({ length: 64 }, () => 
+  return Array.from({ length: SIGNATURE_LENGTH }, () => 
     Math.floor(Math.random() * 16).toString(16)
   ).join('').toUpperCase();
 }
