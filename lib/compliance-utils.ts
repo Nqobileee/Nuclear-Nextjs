@@ -23,11 +23,11 @@ export async function downloadDocumentPDF(
   `;
   
   // Create a blob and trigger download
-  const blob = new Blob([pdfContent], { type: 'application/pdf' });
+  const blob = new Blob([pdfContent], { type: 'text/plain' });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `${documentName.replace(/\s+/g, '_')}_${shipmentId}.pdf`;
+  link.download = `${documentName.replace(/\s+/g, '_')}_${shipmentId}.txt`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -73,11 +73,11 @@ export async function downloadComplianceReport(
     This is a mock compliance report download.
   `;
   
-  const blob = new Blob([reportContent], { type: 'application/pdf' });
+  const blob = new Blob([reportContent], { type: 'text/plain' });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `compliance_report_${shipmentId}.pdf`;
+  link.download = `compliance_report_${shipmentId}.txt`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

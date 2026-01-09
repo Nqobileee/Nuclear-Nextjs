@@ -77,11 +77,11 @@ export async function generateSignedPDFReport(
     PDF with embedded digital signatures and QR codes for verification.
   `;
   
-  const blob = new Blob([pdfContent], { type: 'application/pdf' });
+  const blob = new Blob([pdfContent], { type: 'text/plain' });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `signed_audit_trail_${shipmentId}_${Date.now()}.pdf`;
+  link.download = `signed_audit_trail_${shipmentId}_${Date.now()}.txt`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
