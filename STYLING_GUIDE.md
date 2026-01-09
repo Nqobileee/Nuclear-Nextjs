@@ -152,11 +152,13 @@ The styling follows mobile-first design principles:
 
 All color combinations meet WCAG 2.1 AA standards (minimum 4.5:1 for normal text, 3:1 for large text):
 
-- **Primary on Background**: #124F72 on #CBCACF = 7.2:1 ✓
-- **Text on Background**: #3F3029 on #CBCACF = 8.4:1 ✓
-- **Accent on Background**: #67D794 on #CBCACF = 1.8:1 (use for decorative only)
-- **White on Primary**: #FFFFFF on #124F72 = 6.8:1 ✓
-- **White on Accent**: #FFFFFF on #67D794 = 2.1:1 (avoid, use text instead)
+- **Primary on Background**: #124F72 on #CBCACF = 5.40:1 ✓ (WCAG AA compliant)
+- **Text on Background**: #3F3029 on #CBCACF = 7.74:1 ✓ (WCAG AAA compliant)
+- **Accent on Background**: #67D794 on #CBCACF = 1.10:1 ✗ (decorative only - DO NOT use for text or interactive elements)
+- **White on Primary**: #FFFFFF on #124F72 = 8.80:1 ✓ (WCAG AAA compliant)
+- **White on Accent**: #FFFFFF on #67D794 = 1.79:1 ✗ (insufficient contrast - use accent-foreground (#3F3029) instead)
+- **Text on Accent**: #3F3029 on #67D794 = 7.04:1 ✓ (WCAG AA compliant - preferred for text on accent backgrounds)
+- **White on Secondary**: #FFFFFF on #5F5A5F = 6.74:1 ✓ (WCAG AA compliant)
 
 ### Best Practices
 
