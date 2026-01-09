@@ -41,14 +41,14 @@ export function Features() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-24 bg-card">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-purple-100 rounded-full mb-4">
-            <span className="text-purple-600">Features</span>
+          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+            <span className="text-primary">Features</span>
           </div>
-          <h2 className="text-5xl mb-4">Everything you need to succeed</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h2 className="font-heading text-5xl mb-4 text-foreground">Everything you need to succeed</h2>
+          <p className="text-xl text-secondary max-w-2xl mx-auto">
             Comprehensive tools designed specifically for nuclear medicine logistics
           </p>
         </div>
@@ -59,13 +59,13 @@ export function Features() {
             return (
               <div 
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border border-gray-100"
+                className="bg-background rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border border-border"
               >
                 <div className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mb-6`}>
                   <Icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="font-heading text-xl mb-3 text-foreground">{feature.title}</h3>
+                <p className="text-secondary">{feature.description}</p>
               </div>
             );
           })}
