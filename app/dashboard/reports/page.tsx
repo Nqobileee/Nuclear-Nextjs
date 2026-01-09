@@ -1,9 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { subDays } from 'date-fns';
 import { TrendingUp, Download, FileText, Loader2 } from 'lucide-react';
 import { DatePicker } from '@/components/ui/date-picker';
 import { toast } from 'sonner';
+
+const REPORT_GENERATION_DELAY_MS = 1500;
+const EXPORT_DELAY_MS = 1000;
 
 export default function ReportsPage() {
   const [reportType, setReportType] = useState('Shipment Performance');
@@ -20,19 +24,13 @@ export default function ReportsPage() {
     const today = new Date();
     
     if (value === 'Last 7 Days') {
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(today.getDate() - 7);
-      setStartDate(sevenDaysAgo);
+      setStartDate(subDays(today, 7));
       setEndDate(today);
     } else if (value === 'Last 30 Days') {
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(today.getDate() - 30);
-      setStartDate(thirtyDaysAgo);
+      setStartDate(subDays(today, 30));
       setEndDate(today);
     } else if (value === 'Last 90 Days') {
-      const ninetyDaysAgo = new Date();
-      ninetyDaysAgo.setDate(today.getDate() - 90);
-      setStartDate(ninetyDaysAgo);
+      setStartDate(subDays(today, 90));
       setEndDate(today);
     } else if (value === 'Custom Range') {
       // Don't auto-set dates for custom range
@@ -70,8 +68,8 @@ export default function ReportsPage() {
     
     setIsLoading(true);
     
-    // Mock 1.5 second delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Mock delay for report generation
+    await new Promise(resolve => setTimeout(resolve, REPORT_GENERATION_DELAY_MS));
     
     setIsLoading(false);
     toast.success('Report generated successfully!');
@@ -87,7 +85,7 @@ export default function ReportsPage() {
     setIsExporting(true);
     
     // Mock export delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, EXPORT_DELAY_MS));
     
     setIsExporting(false);
     toast.success('Report exported successfully!');
