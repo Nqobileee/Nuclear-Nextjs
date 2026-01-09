@@ -157,7 +157,7 @@ export default async function DashboardPage() {
               </div>
             ))}
             {/* Show more button on mobile */}
-            <button className="md:hidden w-full text-center text-sm text-purple-600 hover:text-purple-700 py-2">
+            <button type="button" className="md:hidden w-full text-center text-sm text-purple-600 hover:text-purple-700 py-2">
               View All Activity
             </button>
           </div>
