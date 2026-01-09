@@ -20,19 +20,34 @@ export function TouchableCard({
   onClick,
   href
 }: TouchableCardProps) {
-  const baseClasses = `
-    bg-white rounded-xl p-4 sm:p-6 border border-gray-200
-    transition-all duration-200
-    active:scale-[0.98] touch-manipulation
-    ${onClick || href ? 'cursor-pointer hover:shadow-lg hover:border-gray-300' : ''}
-    min-h-[44px] flex items-center
-  `
+  // Helper function to generate card classes
+  const getCardClasses = () => {
+    const baseClasses = [
+      'bg-white',
+      'rounded-xl',
+      'p-4 sm:p-6',
+      'border border-gray-200',
+      'transition-all duration-200',
+      'active:scale-[0.98]',
+      'touch-manipulation',
+      'min-h-[44px]',
+      'flex items-center'
+    ]
+    
+    if (onClick || href) {
+      baseClasses.push('cursor-pointer', 'hover:shadow-lg', 'hover:border-gray-300')
+    }
+    
+    return baseClasses.join(' ')
+  }
+  
+  const cardClasses = `${getCardClasses()} ${className}`
   
   if (href) {
     return (
       <a 
         href={href}
-        className={`${baseClasses} ${className}`}
+        className={cardClasses}
         onClick={onClick}
       >
         {children}
@@ -44,7 +59,7 @@ export function TouchableCard({
     return (
       <button 
         onClick={onClick}
-        className={`${baseClasses} ${className} w-full text-left`}
+        className={`${cardClasses} w-full text-left`}
       >
         {children}
       </button>
@@ -52,7 +67,7 @@ export function TouchableCard({
   }
   
   return (
-    <div className={`${baseClasses} ${className}`}>
+    <div className={cardClasses}>
       {children}
     </div>
   )

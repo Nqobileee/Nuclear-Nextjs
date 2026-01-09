@@ -98,11 +98,6 @@
     font-size: 16px;
   }
   
-  /* Improve touch scrolling on iOS */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
-  
   /* Prevent zoom on input focus (iOS) */
   @media screen and (max-width: 767px) {
     input[type="text"],
@@ -146,5 +141,10 @@ html {
   /* Touch manipulation utility */
   .touch-manipulation {
     touch-action: manipulation;
+  }
+  
+  /* Smooth touch scrolling for specific containers */
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
   }
 }
