@@ -15,6 +15,8 @@ import {
   getActiveShipments
 } from '@/lib/api'
 import DashboardGreeting from '@/components/DashboardGreeting'
+import UpcomingDeliveries from '@/components/shared/UpcomingDeliveries'
+import RecentActivity from '@/components/shared/RecentActivity'
 import { 
   MobileOnly, 
   DesktopOnly, 
