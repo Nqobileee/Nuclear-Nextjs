@@ -540,9 +540,9 @@ export default function ProcurementPage() {
         <div className="px-4 sm:px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">Showing 1-4 of 4</div>
           <div className="flex items-center gap-2">
-            <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm min-h-[44px]">Previous</button>
-            <button className="px-3 py-1 bg-purple-600 text-white rounded text-sm min-h-[44px]">1</button>
-            <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm min-h-[44px]">Next</button>
+            <button type="button" className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm min-h-[44px]">Previous</button>
+            <button type="button" className="px-3 py-1 bg-purple-600 text-white rounded text-sm min-h-[44px]">1</button>
+            <button type="button" className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm min-h-[44px]">Next</button>
           </div>
         </div>
       </div>
