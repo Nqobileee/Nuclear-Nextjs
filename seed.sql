@@ -23,12 +23,26 @@ INSERT INTO public.activities (event, type, time) VALUES
 ('Compliance alert: License renewal due', 'alert', NOW() - INTERVAL '2 days'),
 ('Quality inspection approved for batch B-2024-001', 'approval', NOW() - INTERVAL '3 days');
 
--- 4. Deliveries (Upcoming)
+-- 4. Deliveries (Upcoming and some completed for testing)
+-- NOTE: These seed times are relative to when the script is run.
+-- Past deliveries (for testing "completed" status - will show in recent activity if run after these times)
 INSERT INTO public.deliveries (date, time, isotope, destination) VALUES 
-(CURRENT_DATE + 1, '14:30', 'Tc-99m', 'Memorial Hospital, NYC'),
-(CURRENT_DATE + 2, '09:00', 'I-131', 'Johns Hopkins, MD'),
-(CURRENT_DATE + 3, '16:45', 'Mo-99', 'Mayo Clinic, MN'),
-(CURRENT_DATE + 4, '08:30', 'Ga-68', 'Stanford Medical, CA');
+(CURRENT_DATE, '06:00', 'F-18', 'City General Hospital, LA'),
+(CURRENT_DATE, '07:30', 'Lu-177', 'Mount Sinai Hospital, NY'),
+-- Upcoming today (set for later in the day - adjust times as needed for your timezone)
+(CURRENT_DATE, '18:00', 'Tc-99m', 'Memorial Hospital, NYC'),
+(CURRENT_DATE, '20:30', 'Ga-68', 'UCLA Medical Center, CA'),
+-- Tomorrow
+(CURRENT_DATE + 1, '09:00', 'I-131', 'Johns Hopkins, MD'),
+(CURRENT_DATE + 1, '14:30', 'Mo-99', 'Massachusetts General, MA'),
+(CURRENT_DATE + 1, '16:45', 'Y-90', 'Cleveland Clinic, OH'),
+-- Day after tomorrow
+(CURRENT_DATE + 2, '08:30', 'Lu-177', 'Houston Methodist, TX'),
+(CURRENT_DATE + 2, '10:15', 'Tc-99m', 'Mayo Clinic, MN'),
+(CURRENT_DATE + 2, '15:00', 'F-18', 'Stanford Medical, CA'),
+-- Third day ahead
+(CURRENT_DATE + 3, '11:00', 'Ga-68', 'Northwestern Memorial, IL'),
+(CURRENT_DATE + 3, '13:30', 'I-131', 'Barnes-Jewish, MO');
 
 -- 5. Permits (Sample)
 INSERT INTO public.permits (name, expiry_date, status) VALUES 

@@ -7,6 +7,7 @@ import {
     Shipment,
     StatCard
 } from '@/models'
+import { combineDateAndTime } from '@/lib/dateUtils'
 
 // --- Data Fetching Functions ---
 
@@ -121,17 +122,82 @@ export async function getRecentActivity(limit: number = 5): Promise<Activity[]> 
 
 export async function getUpcomingDeliveries(limit: number = 4): Promise<Delivery[]> {
     const supabase = await createClient()
-
-    // Deliveries table
-    const { data } = await supabase
+    const now = new Date()
+    
+    // Get deliveries from today onwards
+    const { data, error } = await supabase
         .from('deliveries')
         .select('*')
-        .gte('date', new Date().toISOString().split('T')[0]) // From today
+        .gte('date', now.toISOString().split('T')[0]) // From today
         .order('date', { ascending: true })
         .order('time', { ascending: true })
-        .limit(limit)
+    
+    if (error) {
+        console.error('Failed to fetch upcoming deliveries:', error)
+        return []
+    }
+    
+    if (!data || data.length === 0) {
+        return []
+    }
+    
+    // Filter out past deliveries and add scheduled_datetime using utility function
+    const upcomingDeliveries = (data as Delivery[])
+        .map((delivery) => {
+            const scheduledDateTime = combineDateAndTime(delivery.date, delivery.time)
+            
+            return {
+                ...delivery,
+                scheduled_datetime: scheduledDateTime,
+                status: 'upcoming' as const
+            }
+        })
+        .filter(delivery => delivery.scheduled_datetime && delivery.scheduled_datetime > now)
+        .slice(0, limit)
+    
+    return upcomingDeliveries
+}
 
-    return (data as Delivery[]) || []
+export async function getCompletedDeliveries(hoursBack: number = 24): Promise<Delivery[]> {
+    const supabase = await createClient()
+    const now = new Date()
+    const cutoffDate = new Date(now.getTime() - (hoursBack * 60 * 60 * 1000))
+    
+    // Get deliveries from the past 24 hours
+    const { data, error } = await supabase
+        .from('deliveries')
+        .select('*')
+        .gte('date', cutoffDate.toISOString().split('T')[0])
+        .order('date', { ascending: false })
+        .order('time', { ascending: false })
+    
+    if (error) {
+        console.error('Failed to fetch completed deliveries:', error)
+        return []
+    }
+    
+    if (!data || data.length === 0) {
+        return []
+    }
+    
+    // Filter to get only completed deliveries (past scheduled time) using utility function
+    const completedDeliveries = (data as Delivery[])
+        .map((delivery) => {
+            const scheduledDateTime = combineDateAndTime(delivery.date, delivery.time)
+            
+            return {
+                ...delivery,
+                scheduled_datetime: scheduledDateTime,
+                status: 'completed' as const
+            }
+        })
+        .filter(delivery => 
+            delivery.scheduled_datetime && 
+            delivery.scheduled_datetime <= now &&
+            delivery.scheduled_datetime >= cutoffDate
+        )
+    
+    return completedDeliveries
 }
 
 export async function getComplianceAlerts(): Promise<ComplianceAlert[]> {
