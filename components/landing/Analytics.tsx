@@ -7,14 +7,14 @@ export function Analytics() {
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="font-heading text-5xl mb-4 text-foreground">Powerful Analytics Dashboard</h2>
-          <p className="text-xl text-secondary">Real-time insights into your entire logistics operation</p>
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 text-foreground">Analytics & Reporting</h2>
+          <p className="text-xl text-secondary">Comprehensive insights for operational excellence</p>
         </div>
 
         {/* Dashboard Preview */}
         <div className="grid lg:grid-cols-3 gap-6 mb-12">
           {/* Main Chart Card */}
-          <div className="lg:col-span-2 bg-card border border-border rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+          <div className="lg:col-span-2 bg-card border border-border rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="font-heading text-lg mb-1 text-foreground">Delivery Performance</h3>
@@ -55,7 +55,7 @@ export function Analytics() {
           </div>
 
           {/* Temperature Monitor */}
-          <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 mb-6">
               <Activity className="w-6 h-6 text-primary" />
               <h3 className="font-heading text-lg text-foreground">Temperature Monitor</h3>

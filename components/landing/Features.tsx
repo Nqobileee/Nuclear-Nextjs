@@ -44,12 +44,12 @@ export function Features() {
     <section className="py-24 bg-card">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
-            <span className="text-primary">Features</span>
+          <div className="inline-block px-4 py-2 bg-primary/10 rounded-md mb-4 border border-primary/20">
+            <span className="text-primary font-medium">Features</span>
           </div>
-          <h2 className="font-heading text-5xl mb-4 text-foreground">Everything you need to succeed</h2>
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 text-foreground">Comprehensive Platform Features</h2>
           <p className="text-xl text-secondary max-w-2xl mx-auto">
-            Comprehensive tools designed specifically for nuclear medicine logistics
+            Enterprise-grade tools for nuclear medicine logistics management
           </p>
         </div>
 
@@ -59,9 +59,9 @@ export function Features() {
             return (
               <div 
                 key={index}
-                className="bg-background rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border border-border"
+                className="bg-background rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow border border-border"
               >
-                <div className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mb-6`}>
+                <div className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-lg flex items-center justify-center mb-6`}>
                   <Icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="font-heading text-xl mb-3 text-foreground">{feature.title}</h3>

@@ -23,9 +23,9 @@ export function Hero({ onOpenLogin }: HeroProps) {
         </div>
         <button 
           onClick={onOpenLogin}
-          className="bg-primary text-primary-foreground px-6 py-2 rounded-full hover:bg-primary/90 transition-colors"
+          className="bg-primary text-primary-foreground px-6 py-2 rounded-md hover:bg-primary/90 transition-colors font-medium"
         >
-          Get Started
+          Sign In
         </button>
         <button className="md:hidden">
           <Menu className="w-6 h-6" />
@@ -35,16 +35,15 @@ export function Hero({ onOpenLogin }: HeroProps) {
       {/* Hero Content */}
       <div className="container mx-auto px-6 pt-20 pb-32 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
-          <div className="inline-block px-4 py-2 bg-card/60 backdrop-blur-sm rounded-full border border-primary/20">
-            <span className="text-primary">✨ Next-Gen Medical Logistics Platform</span>
+          <div className="inline-block px-4 py-2 bg-card border border-primary/20 rounded-md">
+            <span className="text-primary font-medium">Professional Medical Logistics Platform</span>
           </div>
           
-          <h1 className="font-heading text-6xl md:text-7xl lg:text-8xl tracking-tight text-foreground">
-            Revolutionizing<br />
+          <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl tracking-tight text-foreground">
+            Nuclear Medicine<br />
             <span className="text-primary">
-              Nuclear Medicine
-            </span><br />
-            Logistics
+              Supply Chain Management
+            </span>
           </h1>
           
           <p className="text-xl text-secondary max-w-2xl mx-auto">
@@ -54,22 +53,21 @@ export function Hero({ onOpenLogin }: HeroProps) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={onOpenLogin}
-              className="bg-accent text-accent-foreground px-8 py-4 rounded-full hover:bg-accent/90 transition-all hover:scale-105 flex items-center justify-center gap-2 font-semibold"
+              className="bg-primary text-primary-foreground px-8 py-3 rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 font-medium"
             >
-              Start Free Trial
+              Get Started
               <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="bg-card text-foreground px-8 py-4 rounded-full hover:bg-card/80 transition-all border border-border">
-              Watch Demo
+            <button className="bg-card text-foreground px-8 py-3 rounded-md hover:bg-muted transition-colors border border-border">
+              Schedule Demo
             </button>
           </div>
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-10 w-72 h-72 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-      <div className="absolute top-1/3 right-10 w-72 h-72 bg-accent/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000"></div>
-      <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-secondary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-4000"></div>
+      {/* Subtle Background Elements */}
+      <div className="absolute top-1/4 left-10 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl opacity-50"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl opacity-50"></div>
     </div>
   );
 }

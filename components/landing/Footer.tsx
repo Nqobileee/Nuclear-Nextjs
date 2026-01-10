@@ -20,19 +20,19 @@ export function Footer() {
               <span className="font-heading text-white text-xl">NuclearFlow</span>
             </div>
             <p className="mb-6 text-white/70">
-              The modern platform for nuclear medicine logistics. Safe, compliant, and efficient.
+              Enterprise platform for nuclear medicine supply chain management.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 bg-primary/20 rounded-md flex items-center justify-center hover:bg-primary transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 bg-primary/20 rounded-md flex items-center justify-center hover:bg-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 bg-primary/20 rounded-md flex items-center justify-center hover:bg-primary transition-colors">
                 <Github className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-10 h-10 bg-primary/20 rounded-md flex items-center justify-center hover:bg-primary transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
