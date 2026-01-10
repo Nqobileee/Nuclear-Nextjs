@@ -1,14 +1,113 @@
 'use client';
 
-import { TrendingUp, Download } from 'lucide-react';
+import { useState } from 'react';
+import { subDays } from 'date-fns';
+import { TrendingUp, Download, FileText, Loader2 } from 'lucide-react';
+import { DatePicker } from '@/components/ui/date-picker';
+import { toast } from 'sonner';
+
+const REPORT_GENERATION_DELAY_MS = 1500;
+const EXPORT_DELAY_MS = 1000;
 
 export default function ReportsPage() {
+  const [reportType, setReportType] = useState('Shipment Performance');
+  const [timePeriod, setTimePeriod] = useState('Last 7 Days');
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+
+  // Handle time period change
+  const handleTimePeriodChange = (value: string) => {
+    setTimePeriod(value);
+    
+    const today = new Date();
+    
+    if (value === 'Last 7 Days') {
+      setStartDate(subDays(today, 7));
+      setEndDate(today);
+    } else if (value === 'Last 30 Days') {
+      setStartDate(subDays(today, 30));
+      setEndDate(today);
+    } else if (value === 'Last 90 Days') {
+      setStartDate(subDays(today, 90));
+      setEndDate(today);
+    } else if (value === 'Custom Range') {
+      // Don't auto-set dates for custom range
+      setStartDate(undefined);
+      setEndDate(undefined);
+    }
+  };
+
+  // Handle start date change with validation
+  const handleStartDateChange = (date: Date | undefined) => {
+    setStartDate(date);
+    
+    // If end date exists and is before new start date, clear end date
+    if (date && endDate && endDate < date) {
+      setEndDate(undefined);
+      toast.error('End date cannot be before start date');
+    }
+  };
+
+  // Handle end date change with validation
+  const handleEndDateChange = (date: Date | undefined) => {
+    if (date && startDate && date < startDate) {
+      toast.error('End date cannot be before start date');
+      return;
+    }
+    setEndDate(date);
+  };
+
+  // Check if generate button should be disabled
+  const isGenerateDisabled = !reportType || !timePeriod || !startDate || !endDate;
+
+  // Handle generate report
+  const handleGenerateReport = async () => {
+    if (isGenerateDisabled) return;
+    
+    setIsLoading(true);
+    
+    // Mock delay for report generation
+    await new Promise(resolve => setTimeout(resolve, REPORT_GENERATION_DELAY_MS));
+    
+    setIsLoading(false);
+    toast.success('Report generated successfully!');
+  };
+
+  // Handle export report
+  const handleExportReport = async () => {
+    if (!startDate || !endDate) {
+      toast.error('Please select date range before exporting');
+      return;
+    }
+    
+    setIsExporting(true);
+    
+    // Mock export delay
+    await new Promise(resolve => setTimeout(resolve, EXPORT_DELAY_MS));
+    
+    setIsExporting(false);
+    toast.success('Report exported successfully!');
+  };
+
+  // Check if date pickers should be enabled
+  const isDatePickerEnabled = timePeriod === 'Custom Range';
+
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
         <h2 className="text-xl sm:text-2xl">Reports & Analytics</h2>
-        <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 self-start text-sm">
-          <Download className="w-4 h-4" />
+        <button 
+          onClick={handleExportReport}
+          disabled={isExporting}
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 self-start text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isExporting ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Download className="w-4 h-4" />
+          )}
           Export Report
         </button>
       </div>
@@ -18,7 +117,11 @@ export default function ReportsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm mb-2">Report Type</label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <select 
+              value={reportType}
+              onChange={(e) => setReportType(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            >
               <option>Shipment Performance</option>
               <option>Compliance Overview</option>
               <option>Financial Summary</option>
@@ -27,7 +130,11 @@ export default function ReportsPage() {
           </div>
           <div>
             <label className="block text-sm mb-2">Time Period</label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <select 
+              value={timePeriod}
+              onChange={(e) => handleTimePeriodChange(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            >
               <option>Last 7 Days</option>
               <option>Last 30 Days</option>
               <option>Last 90 Days</option>
@@ -36,18 +143,43 @@ export default function ReportsPage() {
           </div>
           <div>
             <label className="block text-sm mb-2">Start Date</label>
-            <input 
-              type="date"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            <DatePicker 
+              date={startDate}
+              onDateChange={handleStartDateChange}
+              disabled={!isDatePickerEnabled}
+              placeholder="Pick a date"
             />
           </div>
           <div>
             <label className="block text-sm mb-2">End Date</label>
-            <input 
-              type="date"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            <DatePicker 
+              date={endDate}
+              onDateChange={handleEndDateChange}
+              disabled={!isDatePickerEnabled}
+              placeholder="Pick a date"
             />
           </div>
+        </div>
+        
+        {/* Generate Report Button */}
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={handleGenerateReport}
+            disabled={isGenerateDisabled || isLoading}
+            className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Generating...
+              </>
+            ) : (
+              <>
+                <FileText className="w-4 h-4" />
+                Generate Report
+              </>
+            )}
+          </button>
         </div>
       </div>
 
