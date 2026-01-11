@@ -2,66 +2,52 @@
 
 Comprehensive nuclear supply chain management platform for radiopharmaceutical delivery.
 
-## Environment Setup
-
-This application requires Supabase environment variables to be configured:
-
-- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anonymous/public key
-
-### Vercel Deployment
-
-If you've connected Supabase via the Vercel integration, these variables should be automatically configured. If you're seeing authentication errors, try:
-
-1. Go to your Vercel project → Settings → Environment Variables
-2. Verify that `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are present
-3. Redeploy your application to ensure the variables are picked up
-
 ## Demo Credentials
 
-For testing and demonstration purposes, the login page includes pre-configured demo credentials:
+This application uses simple demo authentication. Use these credentials to log in:
 
 - **Email:** `demo@nuclear.app`
 - **Password:** `demo123456`
 
 Click the "Use Demo Credentials" button on the login page to automatically fill in these credentials.
 
-**Note:** The demo user account must exist in your Supabase database for authentication to work. To create the demo user, sign up with these credentials or create it directly in your Supabase dashboard.
-
 ## Development
 
 ```bash
 # Install dependencies
 bun install
+# or
+npm install --legacy-peer-deps
 
 # Run development server
 bun run dev
+# or
+npm run dev
 
 # Build for production
 bun run build
+# or
+npm run build
 ```
 
 ## Tech Stack
 
 - **Framework**: Next.js 16 (with Turbopack)
-- **Authentication**: Supabase Auth
-- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Simple demo authentication (localStorage)
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
-- **Package Manager**: Bun
+- **Package Manager**: Bun or npm
 
 ## Project Structure
 
 ```
 ├── app/                    # Next.js app directory
 │   ├── dashboard/         # Dashboard pages
-│   ├── auth/              # Authentication routes
 │   └── login/             # Login page
 ├── components/            # React components
 ├── contexts/              # React contexts (Auth, etc.)
 ├── controllers/           # Business logic controllers
 ├── lib/                   # Utility libraries
-│   └── supabase/         # Supabase client configuration
 ├── models/                # TypeScript models/types
 ├── services/              # External services
 └── styles/                # Global styles
@@ -69,7 +55,7 @@ bun run build
 
 ## Features
 
-- 🔐 Secure authentication with Supabase
+- 🔐 Simple demo authentication
 - 📦 Shipment tracking and management
 - 📊 Compliance monitoring
 - 🔍 Full traceability

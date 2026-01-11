@@ -37,7 +37,7 @@ const tabs: Tab[] = [
 ]
 
 export default function SettingsPage() {
-  const { user, supabaseUser } = useAuth()
+  const { user } = useAuth()
   const [activeTab, setActiveTab] = useState<TabId>('profile')
   const [profile, setProfile] = useState<any>(null)
   const [sessions, setSessions] = useState<UserSession[]>([])
@@ -53,17 +53,17 @@ export default function SettingsPage() {
         const response = await fetch('/api/settings/profile')
         if (response.ok) {
           const data = await response.json()
-          setProfile({ ...data.profile, email: supabaseUser?.email })
+          setProfile({ ...data.profile, email: user?.name ? `${user.name.toLowerCase().replace(/\s+/g, '.')}@nuclear.app` : 'demo@nuclear.app' })
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error)
       }
     }
 
-    if (supabaseUser) {
+    if (user) {
       fetchProfile()
     }
-  }, [supabaseUser])
+  }, [user])
 
   // Mock sessions and login history (replace with actual API calls)
   useEffect(() => {
