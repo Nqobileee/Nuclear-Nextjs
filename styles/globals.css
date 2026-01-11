@@ -5,72 +5,79 @@
 :root {
   --font-size: 16px;
   
-  /* Pharmacy-Inspired Color Palette (Light Theme Only) */
+  /* Base Colors - NuClear Brand */
+  --nuclear-navy: #153057;
+  --nuclear-gold: #c69c6d;
+  --nuclear-gray: #bec1c4;
+  --nuclear-white-soft: #F7F9FC;
+  --nuclear-white-pure: #FFFFFF;
   
-  /* Primary – Navy (Trust & Authority) */
-  --primary: #083A4F;
-  --primary-foreground: #ffffff;
+  /* NuClear Brand Color Palette */
   
-  /* Accent – Gold (Quality & Precision) */
-  --accent: #A58D66;
-  --accent-foreground: #083A4F;
+  /* Primary – Clinical Navy Blue (Trust & Scientific Authority) */
+  --primary: var(--nuclear-navy);
+  --primary-foreground: var(--nuclear-white-pure);
   
-  /* Soft Support – Aqua (Clinical Cleanliness) */
-  --aqua: #C0D5D6;
+  /* Accent – Refined Gold/Amber (Quality & Precision) */
+  --accent: var(--nuclear-gold);
+  --accent-foreground: var(--nuclear-navy);
   
-  /* Secondary Support – Teal (Medical Calm) */
-  --secondary: #407E8C;
-  --secondary-foreground: #ffffff;
+  /* Neutral Support – Medical Light Gray */
+  --neutral-gray: var(--nuclear-gray);
   
-  /* Base – Sand (Light Neutral Background) */
-  --background: #E5E1DD;
+  /* Secondary Support – Medical Light Gray (for secondary text, dividers, UI balance) */
+  --secondary: var(--nuclear-gray);
+  --secondary-foreground: var(--nuclear-navy);
+  
+  /* Base – Soft Clinical White (Clean, Sterile, Modern Canvas) */
+  --background: var(--nuclear-white-soft);
   
   /* Foreground & Text Colors */
-  --foreground: #083A4F;
-  --muted-foreground: rgba(8, 58, 79, 0.7);
+  --foreground: var(--nuclear-navy);
+  --muted-foreground: rgba(21, 48, 87, 0.7);
   
-  /* Card & Surface Colors */
-  --card: #ffffff;
-  --card-foreground: #083A4F;
+  /* Card & Surface Colors – Pure White (Extra Contrast) */
+  --card: var(--nuclear-white-pure);
+  --card-foreground: var(--nuclear-navy);
   
   /* Popover Colors */
-  --popover: #ffffff;
-  --popover-foreground: #083A4F;
+  --popover: var(--nuclear-white-pure);
+  --popover-foreground: var(--nuclear-navy);
   
   /* Muted Backgrounds */
-  --muted: rgba(192, 213, 214, 0.3);
+  --muted: rgba(190, 193, 196, 0.3);
   
   /* Destructive */
   --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: var(--nuclear-white-pure);
   
   /* Borders & Inputs */
-  --border: rgba(64, 126, 140, 0.2);
-  --input: #407E8C;
-  --input-background: #ffffff;
+  --border: rgba(190, 193, 196, 0.4);
+  --input: var(--nuclear-gray);
+  --input-background: var(--nuclear-white-pure);
   
-  /* Focus Ring - Gold */
-  --ring: #A58D66;
+  /* Focus Ring - Refined Gold */
+  --ring: var(--nuclear-gold);
   
-  /* Chart Colors - Pharmacy Palette */
-  --chart-1: #083A4F;
-  --chart-2: #407E8C;
-  --chart-3: #A58D66;
-  --chart-4: #C0D5D6;
-  --chart-5: #E5E1DD;
+  /* Chart Colors - NuClear Palette */
+  --chart-1: var(--nuclear-navy);
+  --chart-2: var(--nuclear-gray);
+  --chart-3: var(--nuclear-gold);
+  --chart-4: var(--nuclear-white-soft);
+  --chart-5: var(--nuclear-white-pure);
   
   /* Border Radius - More minimal (4-6px) */
   --radius: 0.375rem;
   
   /* Sidebar Colors */
-  --sidebar: #ffffff;
-  --sidebar-foreground: #083A4F;
-  --sidebar-primary: #083A4F;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(192, 213, 214, 0.3);
-  --sidebar-accent-foreground: #083A4F;
-  --sidebar-border: rgba(64, 126, 140, 0.2);
-  --sidebar-ring: #A58D66;
+  --sidebar: var(--nuclear-white-pure);
+  --sidebar-foreground: var(--nuclear-navy);
+  --sidebar-primary: var(--nuclear-navy);
+  --sidebar-primary-foreground: var(--nuclear-white-pure);
+  --sidebar-accent: rgba(190, 193, 196, 0.3);
+  --sidebar-accent-foreground: var(--nuclear-navy);
+  --sidebar-border: rgba(190, 193, 196, 0.4);
+  --sidebar-ring: var(--nuclear-gold);
   
   /* Font Weights */
   --font-weight-medium: 500;
@@ -127,12 +134,12 @@ html {
   }
   
   .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
-    background-color: #C0D5D6;
+    background-color: var(--nuclear-gray);
     border-radius: 3px;
   }
   
   .scrollbar-track-gray-100::-webkit-scrollbar-track {
-    background-color: #E5E1DD;
+    background-color: var(--nuclear-white-soft);
   }
   
   /* Touch manipulation utility */
