@@ -5,9 +5,54 @@ import { subDays } from 'date-fns';
 import { TrendingUp, Download, FileText, Loader2 } from 'lucide-react';
 import { DatePicker } from '@/components/ui/date-picker';
 import { toast } from 'sonner';
+import {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 const REPORT_GENERATION_DELAY_MS = 1500;
 const EXPORT_DELAY_MS = 1000;
+
+// Demo data for charts
+const shipmentStatusData = [
+  { name: 'Delivered', value: 85, count: 120 },
+  { name: 'In Transit', value: 65, count: 92 },
+  { name: 'At Customs', value: 35, count: 49 },
+  { name: 'Dispatched', value: 45, count: 64 },
+];
+
+const isotopeDistributionData = [
+  { name: 'Tc-99m', value: 42, color: '#7C3AED' },
+  { name: 'F-18 FDG', value: 28, color: '#3B82F6' },
+  { name: 'I-131', value: 18, color: '#10B981' },
+  { name: 'Lu-177', value: 12, color: '#F59E0B' },
+];
+
+// Generate activity trends data with fixed values for consistency
+const activityTrendsData = [
+  { day: 1, shipments: 45 }, { day: 2, shipments: 52 }, { day: 3, shipments: 61 },
+  { day: 4, shipments: 58 }, { day: 5, shipments: 72 }, { day: 6, shipments: 68 },
+  { day: 7, shipments: 75 }, { day: 8, shipments: 82 }, { day: 9, shipments: 79 },
+  { day: 10, shipments: 88 }, { day: 11, shipments: 85 }, { day: 12, shipments: 91 },
+  { day: 13, shipments: 87 }, { day: 14, shipments: 94 }, { day: 15, shipments: 89 },
+  { day: 16, shipments: 96 }, { day: 17, shipments: 92 }, { day: 18, shipments: 85 },
+  { day: 19, shipments: 78 }, { day: 20, shipments: 82 }, { day: 21, shipments: 76 },
+  { day: 22, shipments: 81 }, { day: 23, shipments: 74 }, { day: 24, shipments: 79 },
+  { day: 25, shipments: 83 }, { day: 26, shipments: 88 }, { day: 27, shipments: 92 },
+  { day: 28, shipments: 86 }, { day: 29, shipments: 90 }, { day: 30, shipments: 95 },
+];
+
 
 export default function ReportsPage() {
   const [reportType, setReportType] = useState('Shipment Performance');
@@ -207,60 +252,65 @@ export default function ReportsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mb-6">
         <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
           <h3 className="text-base sm:text-lg mb-4">Shipments by Status</h3>
-          <div className="h-64 flex items-end justify-around gap-2">
-            {[
-              { label: 'Delivered', value: 85, color: 'bg-green-600' },
-              { label: 'In Transit', value: 65, color: 'bg-blue-600' },
-              { label: 'At Customs', value: 35, color: 'bg-amber-600' },
-              { label: 'Dispatched', value: 45, color: 'bg-purple-600' },
-            ].map((item, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center">
-                <div 
-                  className={`w-full ${item.color} rounded-t-lg transition-all hover:opacity-80`}
-                  style={{ height: `${item.value}%` }}
-                ></div>
-                <div className="text-sm mt-2 text-center">{item.label}</div>
-                <div className="text-xs text-gray-500">{Math.floor(142 * item.value / 100)}</div>
-              </div>
-            ))}
-          </div>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={shipmentStatusData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <XAxis 
+                dataKey="name" 
+                tick={{ fontSize: 12 }}
+                angle={-45}
+                textAnchor="end"
+                height={80}
+              />
+              <YAxis tick={{ fontSize: 12 }} />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: '#fff', 
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '8px',
+                  fontSize: '12px'
+                }}
+              />
+              <Bar dataKey="count" fill="#7C3AED" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
           <h3 className="text-base sm:text-lg mb-4">Isotope Distribution</h3>
-          <div className="flex items-center justify-center h-48 sm:h-56 lg:h-64">
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48">
-              {/* Donut Chart Visualization */}
-              <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#E5E7EB" strokeWidth="20" />
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#7C3AED" strokeWidth="20" 
-                  strokeDasharray="75 251" strokeDashoffset="0" />
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#3B82F6" strokeWidth="20" 
-                  strokeDasharray="63 251" strokeDashoffset="-75" />
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#10B981" strokeWidth="20" 
-                  strokeDasharray="50 251" strokeDashoffset="-138" />
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#F59E0B" strokeWidth="20" 
-                  strokeDasharray="38 251" strokeDashoffset="-188" />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-2xl">142</div>
-                  <div className="text-xs text-gray-500">Total</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={isotopeDistributionData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={100}
+                paddingAngle={2}
+                dataKey="value"
+                label={({ name, value }) => `${name}: ${value}%`}
+                labelLine={{ stroke: '#6B7280', strokeWidth: 1 }}
+              >
+                {isotopeDistributionData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: '#fff', 
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '8px',
+                  fontSize: '12px'
+                }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-            {[
-              { label: 'Tc-99m', color: 'bg-purple-600', percent: '42%' },
-              { label: 'F-18 FDG', color: 'bg-blue-600', percent: '28%' },
-              { label: 'I-131', color: 'bg-green-600', percent: '18%' },
-              { label: 'Lu-177', color: 'bg-amber-600', percent: '12%' },
-            ].map((item, i) => (
+            {isotopeDistributionData.map((item, i) => (
               <div key={i} className="flex items-center gap-2">
-                <div className={`w-3 h-3 ${item.color} rounded-full`}></div>
-                <span className="text-sm">{item.label}</span>
-                <span className="text-sm text-gray-500 ml-auto">{item.percent}</span>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
+                <span className="text-sm">{item.name}</span>
+                <span className="text-sm text-gray-500 ml-auto">{item.value}%</span>
               </div>
             ))}
           </div>
@@ -270,26 +320,37 @@ export default function ReportsPage() {
       {/* Activity Trends */}
       <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
         <h3 className="text-base sm:text-lg mb-4">Shipment Activity Trends (Last 30 Days)</h3>
-        <div className="h-48 sm:h-56 lg:h-64 flex items-end gap-1">
-          {Array.from({ length: 30 }).map((_, i) => {
-            const height = 30 + Math.random() * 70;
-            return (
-              <div key={i} className="flex-1 flex flex-col justify-end group relative">
-                <div 
-                  className="bg-gradient-to-t from-purple-600 to-blue-600 rounded-t hover:opacity-80 transition-all"
-                  style={{ height: `${height}%` }}
-                ></div>
-                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                  Day {i + 1}: {Math.floor(height / 10)} shipments
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="flex justify-between text-xs text-gray-500 mt-2">
-          <span>30 days ago</span>
-          <span>Today</span>
-        </div>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={activityTrendsData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+            <XAxis 
+              dataKey="day" 
+              tick={{ fontSize: 12 }}
+              label={{ value: 'Days', position: 'insideBottom', offset: -5, fontSize: 12 }}
+            />
+            <YAxis 
+              tick={{ fontSize: 12 }}
+              label={{ value: 'Shipments', angle: -90, position: 'insideLeft', fontSize: 12 }}
+            />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: '#fff', 
+                border: '1px solid #E5E7EB',
+                borderRadius: '8px',
+                fontSize: '12px'
+              }}
+              labelFormatter={(value) => `Day ${value}`}
+            />
+            <Line 
+              type="monotone" 
+              dataKey="shipments" 
+              stroke="#7C3AED" 
+              strokeWidth={2}
+              dot={{ fill: '#7C3AED', r: 3 }}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
