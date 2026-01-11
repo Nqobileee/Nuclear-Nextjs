@@ -10,6 +10,7 @@ export default function ProcurementPage() {
   const viewParam = searchParams?.get('view');
   const [view, setView] = useState<'list' | 'form' | 'quotes'>('list');
   const [formStep, setFormStep] = useState(1);
+  const [editingRequest, setEditingRequest] = useState<any>(null);
 
   // Handle URL parameter on mount
   useEffect(() => {
@@ -56,6 +57,20 @@ export default function ProcurementPage() {
       statusColor: 'bg-gray-100 text-gray-700'
     },
   ];
+
+  const [requests, setRequests] = useState(procurementRequests);
+
+  const handleEdit = (request: any) => {
+    setEditingRequest(request);
+    setFormStep(1);
+    setView('form');
+  };
+
+  const handleDelete = (id: string) => {
+    if (confirm('Are you sure you want to delete this procurement request?')) {
+      setRequests(prev => prev.filter(r => r.id !== id));
+    }
+  };
 
   const quotes = [
     {
@@ -184,9 +199,14 @@ export default function ProcurementPage() {
     return (
       <div className="max-w-3xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-          <h2 className="text-xl sm:text-2xl">New Procurement Request</h2>
+          <h2 className="text-xl sm:text-2xl">
+            {editingRequest ? 'Edit Procurement Request' : 'New Procurement Request'}
+          </h2>
           <button 
-            onClick={() => setView('list')}
+            onClick={() => {
+              setView('list');
+              setEditingRequest(null);
+            }}
             className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors self-start"
           >
             Cancel
@@ -228,7 +248,10 @@ export default function ProcurementPage() {
               <div>
                 <label className="block text-sm mb-2">Isotope Type</label>
                 <div className="relative">
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent appearance-none">
+                  <select 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent appearance-none"
+                    defaultValue={editingRequest?.isotope || ''}
+                  >
                     <option>Select isotope...</option>
                     <option>Tc-99m (Half-life: 6 hours)</option>
                     <option>F-18 FDG (Half-life: 110 minutes)</option>
@@ -244,7 +267,8 @@ export default function ProcurementPage() {
                   <label className="block text-sm mb-2">Activity Required</label>
                   <input 
                     type="number" 
-                    placeholder="500" 
+                    placeholder="500"
+                    defaultValue={editingRequest ? parseInt(editingRequest.quantity) : ''}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   />
                 </div>
@@ -281,7 +305,8 @@ export default function ProcurementPage() {
               <div>
                 <label className="block text-sm mb-2">Delivery Date</label>
                 <input 
-                  type="date" 
+                  type="date"
+                  defaultValue={editingRequest?.deliveryDate || ''}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                 />
               </div>
@@ -371,6 +396,7 @@ export default function ProcurementPage() {
                   setFormStep(formStep + 1);
                 } else {
                   setView('list');
+                  setEditingRequest(null);
                 }
               }}
               className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors order-1 sm:order-2"
@@ -451,7 +477,7 @@ export default function ProcurementPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {procurementRequests.map((request) => (
+              {requests.map((request) => (
                 <tr key={request.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-mono">{request.id}</td>
                   <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">{request.isotope}</td>
@@ -474,10 +500,18 @@ export default function ProcurementPage() {
                       >
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="Edit">
+                      <button 
+                        onClick={() => handleEdit(request)}
+                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors" 
+                        title="Edit"
+                      >
                         <Edit className="w-4 h-4" />
                       </button>
-                      <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-red-600" title="Cancel">
+                      <button 
+                        onClick={() => handleDelete(request.id)}
+                        className="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-600" 
+                        title="Delete"
+                      >
                         <X className="w-4 h-4" />
                       </button>
                     </div>
@@ -492,7 +526,7 @@ export default function ProcurementPage() {
         {/* Mobile Card View */}
         <MobileOnly>
           <div className="p-4 space-y-3">
-            {procurementRequests.map((request) => (
+            {requests.map((request) => (
               <MobileTableCard key={request.id}>
                 <MobileTableCardRow 
                   label="ID" 
@@ -533,6 +567,7 @@ export default function ProcurementPage() {
                   </button>
                   <button 
                     type="button"
+                    onClick={() => handleEdit(request)}
                     className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm min-h-[44px]"
                   >
                     <Edit className="w-4 h-4" />
@@ -540,6 +575,7 @@ export default function ProcurementPage() {
                   </button>
                   <button
                     type="button"
+                    onClick={() => handleDelete(request.id)}
                     className="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors flex items-center justify-center min-h-[44px]"
                     aria-label="Delete request"
                   >

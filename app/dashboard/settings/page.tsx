@@ -45,16 +45,31 @@ function generateUserEmail(userName?: string): string {
 export default function SettingsPage() {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = useState<TabId>('profile')
-  const [profile, setProfile] = useState<any>(null)
+  const [profile, setProfile] = useState<any>({
+    name: user?.name || '',
+    email: generateUserEmail(user?.name),
+    phone: '',
+    job_title: '',
+    department: '',
+    timezone: 'Africa/Johannesburg',
+    date_format: 'YYYY-MM-DD',
+    theme: 'light',
+    two_factor_enabled: false,
+    email_notifications: true,
+    push_notifications: true,
+  })
   const [sessions, setSessions] = useState<UserSession[]>([])
   const [loginHistory, setLoginHistory] = useState<LoginHistoryEntry[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isInitialLoading, setIsInitialLoading] = useState(true)
   const [hasChanges, setHasChanges] = useState(false)
   const [pendingChanges, setPendingChanges] = useState<any>({})
 
-  // Fetch profile data
+  // Fetch profile data with optimistic UI
   useEffect(() => {
     const fetchProfile = async () => {
+      if (!user) return;
+      
       try {
         const response = await fetch('/api/settings/profile')
         if (response.ok) {
@@ -63,40 +78,49 @@ export default function SettingsPage() {
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error)
+        // Keep using default profile data on error
+      } finally {
+        setIsInitialLoading(false)
       }
     }
 
     if (user) {
+      // Set initial profile immediately, then fetch
+      setProfile((prev: any) => ({ ...prev, name: user.name, email: generateUserEmail(user.name) }))
       fetchProfile()
     }
   }, [user])
 
-  // Mock sessions and login history (replace with actual API calls)
+  // Mock sessions and login history (load asynchronously, don't block UI)
   useEffect(() => {
-    // Mock data for demonstration
-    setSessions([
-      {
-        id: '1',
-        user_id: user?.id || '',
-        device: 'MacBook Pro',
-        browser: 'Chrome 120',
-        ip_address: '192.168.1.1',
-        location: 'Cape Town, South Africa',
-        last_active: new Date().toISOString(),
-        created_at: new Date().toISOString(),
-      },
-    ])
+    if (!user) return;
+    
+    // Load mock data asynchronously without blocking
+    setTimeout(() => {
+      setSessions([
+        {
+          id: '1',
+          user_id: user?.id || '',
+          device: 'MacBook Pro',
+          browser: 'Chrome 120',
+          ip_address: '192.168.1.1',
+          location: 'Cape Town, South Africa',
+          last_active: new Date().toISOString(),
+          created_at: new Date().toISOString(),
+        },
+      ])
 
-    setLoginHistory([
-      {
-        id: '1',
-        user_id: user?.id || '',
-        login_at: new Date().toISOString(),
-        ip_address: '192.168.1.1',
-        device: 'MacBook Pro',
-        location: 'Cape Town, South Africa',
-      },
-    ])
+      setLoginHistory([
+        {
+          id: '1',
+          user_id: user?.id || '',
+          login_at: new Date().toISOString(),
+          ip_address: '192.168.1.1',
+          device: 'MacBook Pro',
+          location: 'Cape Town, South Africa',
+        },
+      ])
+    }, 0)
   }, [user])
 
   const handleProfileUpdate = async (data: ProfileUpdateData) => {
@@ -252,7 +276,7 @@ export default function SettingsPage() {
     }
   }
 
-  if (!profile) {
+  if (!profile || !user) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
@@ -304,62 +328,73 @@ export default function SettingsPage() {
 
         {/* Content Area */}
         <div className="lg:col-span-3 bg-white rounded-xl border border-gray-200 p-4 sm:p-6 lg:p-8">
-          {activeTab === 'profile' && (
-            <ProfileSettings
-              profile={profile}
-              onUpdate={handleProfileUpdate}
-              isLoading={isLoading}
-            />
-          )}
+          {isInitialLoading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading {activeTab} settings...</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              {activeTab === 'profile' && (
+                <ProfileSettings
+                  profile={profile}
+                  onUpdate={handleProfileUpdate}
+                  isLoading={isLoading}
+                />
+              )}
 
-          {activeTab === 'account' && (
-            <AccountSettings
-              profile={profile}
-              onPasswordChange={handlePasswordChange}
-              onToggle2FA={handleToggle2FA}
-              onToggleEmailNotifications={handleToggleEmailNotifications}
-              onDeleteAccount={handleDeleteAccount}
-              isLoading={isLoading}
-            />
-          )}
+              {activeTab === 'account' && (
+                <AccountSettings
+                  profile={profile}
+                  onPasswordChange={handlePasswordChange}
+                  onToggle2FA={handleToggle2FA}
+                  onToggleEmailNotifications={handleToggleEmailNotifications}
+                  onDeleteAccount={handleDeleteAccount}
+                  isLoading={isLoading}
+                />
+              )}
 
-          {activeTab === 'preferences' && (
-            <ApplicationPreferences
-              profile={profile}
-              onUpdate={handlePreferencesUpdate}
-              isLoading={isLoading}
-            />
-          )}
+              {activeTab === 'preferences' && (
+                <ApplicationPreferences
+                  profile={profile}
+                  onUpdate={handlePreferencesUpdate}
+                  isLoading={isLoading}
+                />
+              )}
 
-          {activeTab === 'security' && (
-            <SecurityPrivacy
-              profile={profile}
-              sessions={sessions}
-              loginHistory={loginHistory}
-              onSignOutOtherDevices={handleSignOutOtherDevices}
-              onExportData={handleExportData}
-              isLoading={isLoading}
-            />
-          )}
+              {activeTab === 'security' && (
+                <SecurityPrivacy
+                  profile={profile}
+                  sessions={sessions}
+                  loginHistory={loginHistory}
+                  onSignOutOtherDevices={handleSignOutOtherDevices}
+                  onExportData={handleExportData}
+                  isLoading={isLoading}
+                />
+              )}
 
-          {activeTab === 'notifications' && (
-            <NotificationsConfiguration
-              profile={profile}
-              onUpdate={handlePreferencesUpdate}
-              isLoading={isLoading}
-            />
-          )}
+              {activeTab === 'notifications' && (
+                <NotificationsConfiguration
+                  profile={profile}
+                  onUpdate={handlePreferencesUpdate}
+                  isLoading={isLoading}
+                />
+              )}
 
-          {/* Mobile Save Button */}
-          <div className="mt-6 sm:hidden">
-            <Button
-              onClick={handleSaveChanges}
-              disabled={!hasChanges || isLoading}
-              className="w-full"
-            >
-              {isLoading ? 'Saving...' : 'Save Changes'}
-            </Button>
-          </div>
+              {/* Mobile Save Button */}
+              <div className="mt-6 sm:hidden">
+                <Button
+                  onClick={handleSaveChanges}
+                  disabled={!hasChanges || isLoading}
+                  className="w-full"
+                >
+                  {isLoading ? 'Saving...' : 'Save Changes'}
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
