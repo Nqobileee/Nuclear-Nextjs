@@ -112,8 +112,8 @@ export default function ShipmentsPage() {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-xl border border-gray-200">
-          <div className="border-b border-gray-200 px-4 sm:px-6 overflow-x-auto">
+        <div className="bg-card rounded-xl border border-border">
+          <div className="border-b border-border px-4 sm:px-6 overflow-x-auto">
             <div className="flex gap-4 sm:gap-6 min-w-max">
               {[
                 { id: 'tracking', label: 'Tracking' },
@@ -127,8 +127,8 @@ export default function ShipmentsPage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`py-4 border-b-2 transition-colors ${
                     activeTab === tab.id
-                      ? 'border-purple-600 text-primary'
-                      : 'border-transparent text-gray-600 hover:text-gray-900'
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   {tab.label}
@@ -141,7 +141,7 @@ export default function ShipmentsPage() {
             {activeTab === 'tracking' && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Map */}
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl h-64 sm:h-80 lg:h-96 flex items-center justify-center relative overflow-hidden">
+                <div className="bg-gradient-to-br from-blue-50 to-primary/10 rounded-xl h-64 sm:h-80 lg:h-96 flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 opacity-20">
                     <svg viewBox="0 0 400 400" className="w-full h-full">
                       <path 
@@ -165,21 +165,21 @@ export default function ShipmentsPage() {
                       <div className="flex flex-col items-center">
                         <div 
                           className={`w-4 h-4 rounded-full ${
-                            event.completed ? 'bg-green-600' : 'bg-gray-300'
+                            event.completed ? 'bg-green-600' : 'bg-secondary'
                           }`}
                         ></div>
                         {index < trackingEvents.length - 1 && (
                           <div className={`w-0.5 h-full mt-2 ${
-                            event.completed ? 'bg-green-600' : 'bg-gray-300'
+                            event.completed ? 'bg-green-600' : 'bg-secondary'
                           }`}></div>
                         )}
                       </div>
                       <div className="flex-1 pb-6">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm">{event.status}</span>
-                          <span className="text-xs text-gray-500">{event.time}</span>
+                          <span className="text-sm text-foreground">{event.status}</span>
+                          <span className="text-xs text-muted-foreground">{event.time}</span>
                         </div>
-                        <p className="text-sm text-gray-600">{event.location}</p>
+                        <p className="text-sm text-muted-foreground">{event.location}</p>
                       </div>
                     </div>
                   ))}
@@ -257,9 +257,9 @@ export default function ShipmentsPage() {
                   { name: 'Insurance Certificate', status: 'Complete', color: 'text-green-600' },
                   { name: 'Radiation Safety Report', status: 'Complete', color: 'text-green-600' },
                 ].map((doc, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-muted transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                         <Download className="w-5 h-5 text-primary" />
                       </div>
                       <div>
@@ -348,7 +348,7 @@ export default function ShipmentsPage() {
                     </div>
                     <div className="flex items-center justify-between">
                       <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">{log.hash}</code>
-                      <button className="text-sm text-primary hover:text-purple-700">
+                      <button className="text-sm text-primary hover:text-primary/90">
                         Verify on Chain →
                       </button>
                     </div>
@@ -371,7 +371,7 @@ export default function ShipmentsPage() {
           <button 
             onClick={() => setViewType('list')}
             className={`p-2 rounded-lg transition-colors ${
-              viewType === 'list' ? 'bg-purple-100 text-primary' : 'hover:bg-gray-100'
+              viewType === 'list' ? 'bg-primary/10 text-primary' : 'hover:bg-muted'
             }`}
           >
             <List className="w-5 h-5" />
@@ -379,7 +379,7 @@ export default function ShipmentsPage() {
           <button 
             onClick={() => setViewType('map')}
             className={`p-2 rounded-lg transition-colors ${
-              viewType === 'map' ? 'bg-purple-100 text-primary' : 'hover:bg-gray-100'
+              viewType === 'map' ? 'bg-primary/10 text-primary' : 'hover:bg-muted'
             }`}
           >
             <Map className="w-5 h-5" />
@@ -387,7 +387,7 @@ export default function ShipmentsPage() {
           <button 
             onClick={() => setViewType('kanban')}
             className={`p-2 rounded-lg transition-colors ${
-              viewType === 'kanban' ? 'bg-purple-100 text-primary' : 'hover:bg-gray-100'
+              viewType === 'kanban' ? 'bg-primary/10 text-primary' : 'hover:bg-muted'
             }`}
           >
             <LayoutGrid className="w-5 h-5" />
@@ -402,18 +402,18 @@ export default function ShipmentsPage() {
           <input 
             type="text" 
             placeholder="Search shipments..."
-            className="w-full pl-10 pr-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
           />
         </div>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
-          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring">
             <option>All Statuses</option>
             <option>Dispatched</option>
             <option>In Transit</option>
             <option>At Customs</option>
             <option>Delivered</option>
           </select>
-          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring">
             <option>All Isotopes</option>
           </select>
           <button className="px-4 py-2 border border-input rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2">

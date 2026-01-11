@@ -181,14 +181,14 @@ export default function CompliancePage() {
       <div className="bg-white rounded-xl border border-border">
         <div className="p-4 sm:p-6 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-lg sm:text-xl mb-1">Document Checklist</h3>
-            <p className="text-xs sm:text-sm text-gray-600">Shipment #SH-2851</p>
+            <h3 className="font-heading text-lg sm:text-xl mb-1 text-foreground">Document Checklist</h3>
+            <p className="text-xs sm:text-sm text-muted-foreground">Shipment #SH-2851</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
             <select 
               value={selectedShipment}
               onChange={(e) => setSelectedShipment(e.target.value)}
-              className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
             >
               <option value="SH-2851">SH-2851</option>
               <option value="SH-2850">SH-2850</option>
@@ -215,9 +215,9 @@ export default function CompliancePage() {
                         <Icon className={`w-6 h-6 ${doc.statusColor}`} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-sm sm:text-base font-medium mb-1">{doc.name}</h4>
-                        <p className="text-xs sm:text-sm text-gray-600 mb-2">{doc.description}</p>
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                        <h4 className="text-sm sm:text-base font-medium mb-1 text-foreground">{doc.name}</h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-2">{doc.description}</p>
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                           <span>Required for:</span>
                           {doc.required.map((jurisdiction, i) => (
                             <span key={i} className="px-2 py-1 bg-white rounded border border-border">
@@ -239,14 +239,14 @@ export default function CompliancePage() {
                             className="p-2 hover:bg-white rounded-lg transition-colors" 
                             title="View"
                           >
-                            <Eye className="w-4 h-4 text-gray-600" />
+                            <Eye className="w-4 h-4 text-muted-foreground" />
                           </button>
                           <button 
                             onClick={() => downloadDocumentPDF(doc.name, selectedShipment, doc)}
                             className="p-2 hover:bg-white rounded-lg transition-colors" 
                             title="Download"
                           >
-                            <Download className="w-4 h-4 text-gray-600" />
+                            <Download className="w-4 h-4 text-muted-foreground" />
                           </button>
                         </>
                       )}
