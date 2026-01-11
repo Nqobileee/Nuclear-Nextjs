@@ -36,8 +36,14 @@ const tabs: Tab[] = [
   { id: 'notifications', label: 'Notifications', icon: Bell },
 ]
 
+// Helper function to generate email from user name
+function generateUserEmail(userName?: string): string {
+  if (!userName) return 'demo@nuclear.app'
+  return `${userName.toLowerCase().replace(/\s+/g, '.')}@nuclear.app`
+}
+
 export default function SettingsPage() {
-  const { user, supabaseUser } = useAuth()
+  const { user } = useAuth()
   const [activeTab, setActiveTab] = useState<TabId>('profile')
   const [profile, setProfile] = useState<any>(null)
   const [sessions, setSessions] = useState<UserSession[]>([])
@@ -53,17 +59,17 @@ export default function SettingsPage() {
         const response = await fetch('/api/settings/profile')
         if (response.ok) {
           const data = await response.json()
-          setProfile({ ...data.profile, email: supabaseUser?.email })
+          setProfile({ ...data.profile, email: generateUserEmail(user?.name) })
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error)
       }
     }
 
-    if (supabaseUser) {
+    if (user) {
       fetchProfile()
     }
-  }, [supabaseUser])
+  }, [user])
 
   // Mock sessions and login history (replace with actual API calls)
   useEffect(() => {
