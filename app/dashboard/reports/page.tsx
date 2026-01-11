@@ -39,13 +39,19 @@ const isotopeDistributionData = [
   { name: 'Lu-177', value: 12, color: '#F59E0B' },
 ];
 
-// Generate activity trends data
-const activityTrendsData = Array.from({ length: 30 }, (_, i) => ({
-  day: i + 1,
-  shipments: Math.floor(30 + Math.random() * 70),
-}));
-
-const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#7C3AED'];
+// Generate activity trends data with fixed values for consistency
+const activityTrendsData = [
+  { day: 1, shipments: 45 }, { day: 2, shipments: 52 }, { day: 3, shipments: 61 },
+  { day: 4, shipments: 58 }, { day: 5, shipments: 72 }, { day: 6, shipments: 68 },
+  { day: 7, shipments: 75 }, { day: 8, shipments: 82 }, { day: 9, shipments: 79 },
+  { day: 10, shipments: 88 }, { day: 11, shipments: 85 }, { day: 12, shipments: 91 },
+  { day: 13, shipments: 87 }, { day: 14, shipments: 94 }, { day: 15, shipments: 89 },
+  { day: 16, shipments: 96 }, { day: 17, shipments: 92 }, { day: 18, shipments: 85 },
+  { day: 19, shipments: 78 }, { day: 20, shipments: 82 }, { day: 21, shipments: 76 },
+  { day: 22, shipments: 81 }, { day: 23, shipments: 74 }, { day: 24, shipments: 79 },
+  { day: 25, shipments: 83 }, { day: 26, shipments: 88 }, { day: 27, shipments: 92 },
+  { day: 28, shipments: 86 }, { day: 29, shipments: 90 }, { day: 30, shipments: 95 },
+];
 
 
 export default function ReportsPage() {
