@@ -48,7 +48,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <AnimatedLogo size="md" showIcon={true} />
+            <AnimatedLogo size="md" />
           </div>
           <CardDescription>Nuclear Supply Chain Management</CardDescription>
         </CardHeader>

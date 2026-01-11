@@ -13,7 +13,7 @@ export default function NotFound() {
       <div className="text-center relative z-10 px-6">
         {/* Logo */}
         <div className="flex items-center justify-center mb-8">
-          <AnimatedLogo size="md" showIcon={true} />
+          <AnimatedLogo size="md" />
         </div>
 
         {/* 404 Display */}

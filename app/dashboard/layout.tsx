@@ -141,7 +141,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </Link>
             ) : (
               <Link href="/" className="block">
-                <AnimatedLogo size="sm" showIcon={true} />
+                <AnimatedLogo size="sm" />
               </Link>
             )}
           </div>
