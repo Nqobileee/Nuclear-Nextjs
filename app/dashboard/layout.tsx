@@ -12,8 +12,6 @@ import {
   BarChart3, 
   Settings, 
   Search, 
-  Bell, 
-  HelpCircle, 
   ChevronLeft,
   LogOut,
   Menu,
@@ -21,7 +19,7 @@ import {
 } from 'lucide-react'
 import type { NavigationItem, DashboardPage } from '@/models'
 import { useAuth } from '@/contexts'
-import { ProtectedRoute } from '@/components/shared'
+import { ProtectedRoute, NotificationsDropdown, SupportDropdown } from '@/components/shared'
 import { AnimatedLogo } from '@/components'
 
 interface DashboardLayoutProps {
@@ -40,7 +38,6 @@ const navigationItems: NavigationItem[] = [
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [notificationCount] = useState(3)
   const pathname = usePathname()
   const router = useRouter()
   const { user, logout } = useAuth()
@@ -260,23 +257,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             >
               <Search className="w-5 h-5 text-gray-600" aria-hidden="true" />
             </button>
-            <button 
-              className="relative p-2 hover:bg-gray-50 active:bg-gray-100 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label={`Notifications${notificationCount > 0 ? `, ${notificationCount} unread` : ''}`}
-            >
-              <Bell className="w-5 h-5 text-gray-600" aria-hidden="true" />
-              {notificationCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center" aria-hidden="true">
-                  {notificationCount}
-                </span>
-              )}
-            </button>
-            <button 
-              className="hidden sm:flex p-2 hover:bg-gray-50 active:bg-gray-100 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label="Help"
-            >
-              <HelpCircle className="w-5 h-5 text-gray-600" aria-hidden="true" />
-            </button>
+            <NotificationsDropdown />
+            <SupportDropdown />
             <button 
               className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-xs sm:text-sm cursor-pointer touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               aria-label={`User menu for ${userName}`}

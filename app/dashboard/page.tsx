@@ -26,12 +26,22 @@ import {
 
 export default async function DashboardPage() {
 
-  const dashboardStats = await getDashboardStats()
-  const recentActivity = await getRecentActivity(5)
-  const upcomingDeliveries = await getUpcomingDeliveries(4)
-  const completedDeliveries = await getCompletedDeliveries(24)
-  const complianceAlerts = await getComplianceAlerts()
-  const activeShipments = await getActiveShipments()
+  // Fetch all data in parallel for better performance
+  const [
+    dashboardStats,
+    recentActivity,
+    upcomingDeliveries,
+    completedDeliveries,
+    complianceAlerts,
+    activeShipments
+  ] = await Promise.all([
+    getDashboardStats(),
+    getRecentActivity(5),
+    getUpcomingDeliveries(4),
+    getCompletedDeliveries(24),
+    getComplianceAlerts(),
+    getActiveShipments()
+  ])
 
   const stats = [
     {
