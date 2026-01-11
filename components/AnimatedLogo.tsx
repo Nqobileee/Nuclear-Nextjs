@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AtomIcon } from './ui/atom-icon';
 
 export interface AnimatedLogoProps {
   /**
@@ -12,10 +11,6 @@ export interface AnimatedLogoProps {
    */
   size?: 'sm' | 'md' | 'lg';
   /**
-   * Whether to show the logo with icon
-   */
-  showIcon?: boolean;
-  /**
    * Custom className for additional styling
    */
   className?: string;
@@ -25,7 +20,7 @@ export interface AnimatedLogoProps {
   onClick?: () => void;
 }
 
-export function AnimatedLogo({ size = 'md', showIcon = true, className = '', onClick }: AnimatedLogoProps) {
+export function AnimatedLogo({ size = 'md', className = '', onClick }: AnimatedLogoProps) {
   const [isAnimating, setIsAnimating] = useState(true);
   const text = 'NuClear';
   const letters = text.split('');
@@ -44,12 +39,6 @@ export function AnimatedLogo({ size = 'md', showIcon = true, className = '', onC
     lg: 'text-2xl sm:text-3xl md:text-4xl',
   };
 
-  const iconSizes = {
-    sm: 20,
-    md: 24,
-    lg: 32,
-  };
-
   const WrapperTag = onClick ? 'button' : 'div';
   const wrapperProps = onClick
     ? {
@@ -62,17 +51,6 @@ export function AnimatedLogo({ size = 'md', showIcon = true, className = '', onC
 
   return (
     <WrapperTag {...wrapperProps}>
-      {showIcon && (
-        <div
-          className={`${isAnimating ? 'animate-fade-in-symbol' : ''}`}
-          style={{
-            animationDelay: '800ms',
-          }}
-          aria-label="Atom symbol"
-        >
-          <AtomIcon size={iconSizes[size]} className="text-black" />
-        </div>
-      )}
       <span className="font-semibold flex tracking-tight" aria-label="NuClear">
         {letters.map((letter, index) => (
           <span
