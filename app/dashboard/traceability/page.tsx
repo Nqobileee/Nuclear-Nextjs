@@ -71,7 +71,7 @@ export default function TraceabilityPage() {
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-        <h2 className="text-xl sm:text-2xl">Blockchain Traceability</h2>
+        <h2 className="font-heading text-xl sm:text-2xl text-foreground">Blockchain Traceability</h2>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <label className="flex items-center gap-2 cursor-pointer self-start">
             <input 
@@ -80,9 +80,9 @@ export default function TraceabilityPage() {
               onChange={(e) => setIsRegulatorView(e.target.checked)}
               className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
             />
-            <span className="text-xs sm:text-sm">Regulator View</span>
+            <span className="text-xs sm:text-sm text-foreground">Regulator View</span>
           </label>
-          <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm">
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 text-sm font-sans">
             <Download className="w-4 h-4" />
             <span className="whitespace-nowrap">Export Audit Report</span>
           </button>
@@ -102,34 +102,34 @@ export default function TraceabilityPage() {
       )}
 
       {/* Search Interface */}
-      <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 mb-6">
-        <h3 className="text-base sm:text-lg mb-4">Search Shipments</h3>
+      <div className="bg-card rounded-xl p-4 sm:p-6 border border-border mb-6">
+        <h3 className="font-heading text-base sm:text-lg mb-4 text-foreground">Search Shipments</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm mb-2 text-gray-700">Shipment ID or Batch Number</label>
+            <label className="block text-sm mb-2 text-foreground">Shipment ID or Batch Number</label>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input 
                 type="text"
                 value={selectedShipment}
                 onChange={(e) => setSelectedShipment(e.target.value)}
                 placeholder="Search by ID or batch..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-input-background text-foreground"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm mb-2 text-gray-700">Date Range</label>
+            <label className="block text-sm mb-2 text-foreground">Date Range</label>
             <input 
               type="date"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+              className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-input-background text-foreground"
             />
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm mb-2 text-gray-700">Origin Country</label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <label className="block text-sm mb-2 text-foreground">Origin Country</label>
+            <select className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground">
               <option>All Countries</option>
               <option>South Africa</option>
               <option>Kenya</option>
@@ -138,8 +138,8 @@ export default function TraceabilityPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm mb-2 text-gray-700">Isotope Type</label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <label className="block text-sm mb-2 text-foreground">Isotope Type</label>
+            <select className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground">
               <option>All Isotopes</option>
               <option>Tc-99m</option>
               <option>F-18 FDG</option>
@@ -148,8 +148,8 @@ export default function TraceabilityPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm mb-2 text-gray-700">Manufacturer</label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+            <label className="block text-sm mb-2 text-foreground">Manufacturer</label>
+            <select className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground">
               <option>All Manufacturers</option>
               <option>NucMed Solutions</option>
               <option>RadioPharma Inc</option>
@@ -194,8 +194,8 @@ export default function TraceabilityPage() {
 
 
       {/* Audit Trail Timeline */}
-      <div className="bg-white rounded-xl border border-gray-200">
-        <div className="p-4 sm:p-6 border-b border-gray-200">
+      <div className="bg-white rounded-xl border border-border">
+        <div className="p-4 sm:p-6 border-b border-border">
           <h3 className="text-lg sm:text-xl">Immutable Audit Trail</h3>
           <p className="text-xs sm:text-sm text-gray-600 mt-1">All events are recorded on Hyperledger Fabric blockchain</p>
         </div>
@@ -213,11 +213,11 @@ export default function TraceabilityPage() {
                   <div key={index} className="relative md:pl-20">
                     {/* Icon */}
                     <div className="md:absolute md:left-0 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-purple-100 rounded-xl flex items-center justify-center border-4 border-white mb-3 md:mb-0">
-                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-600" />
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-primary" />
                     </div>
 
                     {/* Content */}
-                    <div className="bg-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div className="bg-muted rounded-xl p-4 sm:p-6 border border-border hover:shadow-lg transition-shadow">
                       <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-3 gap-3">
                         <div className="flex-1">
                           <h4 className="font-medium text-sm sm:text-base lg:text-lg mb-2">{event.description}</h4>
@@ -237,7 +237,7 @@ export default function TraceabilityPage() {
                         </div>
                       </div>
 
-                      <div className="bg-white rounded-lg p-3 mb-3 border border-gray-200">
+                      <div className="bg-white rounded-lg p-3 mb-3 border border-border">
                         <div className="text-xs sm:text-sm text-gray-600 mb-1">Actor</div>
                         <div className="text-xs sm:text-sm font-medium break-words">{event.actor}</div>
                       </div>
@@ -262,7 +262,7 @@ export default function TraceabilityPage() {
         </div>
 
         {/* Export Footer */}
-        <div className="p-4 sm:p-6 border-t border-gray-200 bg-gray-50">
+        <div className="p-4 sm:p-6 border-t border-border bg-gray-50">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <p className="text-xs sm:text-sm text-gray-600">
               <strong>{auditEvents.length}</strong> blockchain-verified events recorded
@@ -270,7 +270,7 @@ export default function TraceabilityPage() {
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <button 
                 onClick={() => downloadAuditTrailJSON(selectedShipment, auditEvents)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-white transition-colors text-xs sm:text-sm"
+                className="px-4 py-2 border border-input rounded-lg hover:bg-white transition-colors text-xs sm:text-sm"
               >
                 Download JSON
               </button>
@@ -279,7 +279,7 @@ export default function TraceabilityPage() {
                   isotope: 'Tc-99m',
                   batch: 'TC-2026-001'
                 })}
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-xs sm:text-sm flex items-center justify-center gap-2"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-xs sm:text-sm flex items-center justify-center gap-2"
               >
                 <Download className="w-4 h-4" />
                 <span className="whitespace-nowrap">Generate Signed PDF Report</span>

@@ -122,18 +122,18 @@ export default function ProcurementPage() {
             return (
               <div 
                 key={index}
-                className={`bg-white rounded-xl p-6 border-2 ${
-                  quote.isBestValue ? 'border-purple-600' : 'border-gray-200'
+                className={`bg-card rounded-xl p-6 border-2 ${
+                  quote.isBestValue ? 'border-primary' : 'border-border'
                 } hover:shadow-lg transition-shadow relative`}
               >
                 {quote.isBestValue && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-purple-600 text-white text-xs rounded-full">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-xs rounded-full font-sans">
                     Best Value
                   </div>
                 )}
                 
                 <div className="mb-4">
-                  <h3 className="text-lg mb-2">{quote.manufacturer}</h3>
+                  <h3 className="font-heading text-lg mb-2 text-foreground">{quote.manufacturer}</h3>
                   <div className="flex items-center gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <div 
@@ -145,36 +145,36 @@ export default function ProcurementPage() {
                         ★
                       </div>
                     ))}
-                    <span className="text-sm text-gray-600 ml-1">{quote.rating}</span>
+                    <span className="text-sm text-muted-foreground ml-1">{quote.rating}</span>
                   </div>
                 </div>
 
-                <div className="space-y-2 mb-4 pb-4 border-b border-gray-200">
+                <div className="space-y-2 mb-4 pb-4 border-b border-border">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Product</span>
-                    <span>${quote.price.product.toLocaleString()}</span>
+                    <span className="text-muted-foreground">Product</span>
+                    <span className="text-foreground">${quote.price.product.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Shipping</span>
-                    <span>${quote.price.shipping.toLocaleString()}</span>
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="text-foreground">${quote.price.shipping.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Insurance</span>
-                    <span>${quote.price.insurance.toLocaleString()}</span>
+                    <span className="text-muted-foreground">Insurance</span>
+                    <span className="text-foreground">${quote.price.insurance.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between pt-2 border-t border-gray-200">
-                    <span>Total</span>
-                    <span className="text-lg">${total.toLocaleString()}</span>
+                  <div className="flex justify-between pt-2 border-t border-border">
+                    <span className="text-foreground font-medium">Total</span>
+                    <span className="text-lg text-foreground font-medium">${total.toLocaleString()}</span>
                   </div>
                 </div>
 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Delivery Time</span>
-                    <span>{quote.deliveryTime}</span>
+                    <span className="text-muted-foreground">Delivery Time</span>
+                    <span className="text-foreground">{quote.deliveryTime}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Activity at Arrival</span>
+                    <span className="text-muted-foreground">Activity at Arrival</span>
                     <span className="text-green-600">{quote.activityAtArrival}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-green-600">
@@ -183,7 +183,7 @@ export default function ProcurementPage() {
                   </div>
                 </div>
 
-                <button className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                <button className="w-full bg-primary text-primary-foreground py-3 rounded-lg hover:bg-primary/90 transition-colors font-sans">
                   Select & Create PO
                 </button>
               </div>
@@ -225,28 +225,28 @@ export default function ProcurementPage() {
                 <div 
                   className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base ${
                     formStep >= step.num 
-                      ? 'bg-purple-600 text-white' 
-                      : 'bg-gray-200 text-gray-600'
+                      ? 'bg-primary text-primary-foreground' 
+                      : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   {step.num}
                 </div>
-                <span className={`ml-2 sm:ml-3 text-xs sm:text-sm whitespace-nowrap ${formStep >= step.num ? 'text-gray-900' : 'text-gray-500'}`}>
+                <span className={`ml-2 sm:ml-3 text-xs sm:text-sm whitespace-nowrap ${formStep >= step.num ? 'text-foreground' : 'text-muted-foreground'}`}>
                   {step.label}
                 </span>
               </div>
               {index < 2 && (
-                <div className={`flex-1 h-0.5 mx-2 sm:mx-4 ${formStep > step.num ? 'bg-purple-600' : 'bg-gray-200'}`}></div>
+                <div className={`flex-1 h-0.5 mx-2 sm:mx-4 ${formStep > step.num ? 'bg-primary' : 'bg-secondary'}`}></div>
               )}
             </div>
           ))}
         </div>
 
-        <div className="bg-white rounded-xl p-4 sm:p-6 lg:p-8 border border-gray-200">
+        <div className="bg-card rounded-xl p-4 sm:p-6 lg:p-8 border border-border">
           {formStep === 1 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm mb-2">Isotope Type</label>
+                <label className="block text-sm mb-2 text-foreground">Isotope Type</label>
                 <div className="relative">
                   <select 
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent appearance-none"
@@ -258,13 +258,13 @@ export default function ProcurementPage() {
                     <option>I-131 (Half-life: 8 days)</option>
                     <option>Lu-177 (Half-life: 6.7 days)</option>
                   </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2">Activity Required</label>
+                  <label className="block text-sm mb-2 text-foreground">Activity Required</label>
                   <input 
                     type="number" 
                     placeholder="500"
@@ -273,8 +273,8 @@ export default function ProcurementPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm mb-2">Unit</label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                  <label className="block text-sm mb-2 text-foreground">Unit</label>
+                  <select className="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-input-background text-foreground">
                     <option>mCi</option>
                     <option>GBq</option>
                   </select>
@@ -418,10 +418,10 @@ export default function ProcurementPage() {
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-        <h2 className="text-xl sm:text-2xl">Procurement Requests</h2>
+        <h2 className="font-heading text-xl sm:text-2xl text-foreground">Procurement Requests</h2>
         <button 
           onClick={() => setView('form')}
-          className="bg-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 self-start"
+          className="bg-primary text-primary-foreground px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 self-start font-sans"
         >
           <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
           New Request
@@ -429,30 +429,30 @@ export default function ProcurementPage() {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-white rounded-lg p-3 sm:p-4 mb-6 border border-gray-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+      <div className="bg-card rounded-lg p-3 sm:p-4 mb-6 border border-border flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
         <div className="relative flex-1 max-w-full sm:max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <input 
             type="text" 
             placeholder="Search requests..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-input-background text-foreground"
           />
         </div>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
-          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground">
             <option>All Statuses</option>
             <option>Draft</option>
             <option>Pending Quotes</option>
             <option>Quotes Received</option>
             <option>PO Approved</option>
           </select>
-          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground">
             <option>All Isotopes</option>
             <option>Tc-99m</option>
             <option>F-18 FDG</option>
             <option>I-131</option>
           </select>
-          <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+          <button className="px-4 py-2 border border-input rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2">
             <Filter className="w-4 h-4" />
             More Filters
           </button>
@@ -460,20 +460,20 @@ export default function ProcurementPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         {/* Desktop Table View */}
         <DesktopOnly>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px]">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-muted border-b border-border">
               <tr>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Request ID</th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Isotope</th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Quantity</th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Delivery Date</th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Manufacturers</th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Request ID</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Isotope</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Quantity</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Delivery Date</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Status</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Manufacturers</th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs text-muted-foreground uppercase tracking-wider font-sans">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -490,15 +490,15 @@ export default function ProcurementPage() {
                       {request.status}
                     </span>
                   </td>
-                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">{request.matchedManufacturers}</td>
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-foreground">{request.matchedManufacturers}</td>
                   <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                     <div className="flex items-center gap-2">
                       <button 
                         onClick={() => request.status === 'Quotes Received' && setView('quotes')}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-muted rounded-lg transition-colors"
                         title="View"
                       >
-                        <Eye className="w-4 h-4" />
+                        <Eye className="w-4 h-4 text-muted-foreground" />
                       </button>
                       <button 
                         onClick={() => handleEdit(request)}
@@ -560,7 +560,7 @@ export default function ProcurementPage() {
                   <button 
                     type="button"
                     onClick={() => request.status === 'Quotes Received' && setView('quotes')}
-                    className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm min-h-[44px]"
+                    className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 text-sm min-h-[44px] font-sans"
                   >
                     <Eye className="w-4 h-4" />
                     View
@@ -588,12 +588,12 @@ export default function ProcurementPage() {
         </MobileOnly>
 
         {/* Pagination */}
-        <div className="px-4 sm:px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-sm text-gray-600">Showing 1-4 of 4</div>
+        <div className="px-4 sm:px-6 py-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-sm text-muted-foreground">Showing 1-4 of 4</div>
           <div className="flex items-center gap-2">
-            <button type="button" className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm min-h-[44px]">Previous</button>
-            <button type="button" className="px-3 py-1 bg-purple-600 text-white rounded text-sm min-h-[44px]">1</button>
-            <button type="button" className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm min-h-[44px]">Next</button>
+            <button type="button" className="px-3 py-1 border border-input rounded hover:bg-muted transition-colors text-sm min-h-[44px]">Previous</button>
+            <button type="button" className="px-3 py-1 bg-primary text-primary-foreground rounded text-sm min-h-[44px]">1</button>
+            <button type="button" className="px-3 py-1 border border-input rounded hover:bg-muted transition-colors text-sm min-h-[44px]">Next</button>
           </div>
         </div>
       </div>
