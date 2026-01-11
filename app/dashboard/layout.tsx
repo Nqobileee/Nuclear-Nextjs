@@ -128,9 +128,23 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="h-16 flex items-center px-4 sm:px-6 border-b border-gray-200">
           <div className="flex items-center gap-2 flex-1 min-w-0">
             {sidebarCollapsed ? (
-              <div className="text-2xl" aria-label="Nuclear symbol">⚛</div>
+              <Link href="/" className="text-2xl flex items-center justify-center p-1 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md" aria-label="Go to home">
+                <div className="w-6 h-6 text-black">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="2" fill="currentColor" />
+                    <ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                    <ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" strokeWidth="1.5" fill="none" transform="rotate(60 12 12)" />
+                    <ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" strokeWidth="1.5" fill="none" transform="rotate(-60 12 12)" />
+                    <circle cx="22" cy="12" r="1.5" fill="currentColor" />
+                    <circle cx="6.5" cy="3.4" r="1.5" fill="currentColor" />
+                    <circle cx="6.5" cy="20.6" r="1.5" fill="currentColor" />
+                  </svg>
+                </div>
+              </Link>
             ) : (
-              <AnimatedLogo size="sm" showIcon={true} />
+              <Link href="/" className="block">
+                <AnimatedLogo size="sm" showIcon={true} />
+              </Link>
             )}
           </div>
           {/* Close button for mobile - only visible when menu is open */}
@@ -277,12 +291,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             >
               <HelpCircle className="w-5 h-5 text-gray-600" aria-hidden="true" />
             </button>
-            <button 
+            <Link 
+              href="/dashboard/settings"
               className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-xs sm:text-sm cursor-pointer touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               aria-label={`User menu for ${userName}`}
             >
               {userInitials}
-            </button>
+            </Link>
           </div>
         </header>
 

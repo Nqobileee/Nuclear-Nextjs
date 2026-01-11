@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { AtomIcon } from './ui/atom-icon';
 
 export interface AnimatedLogoProps {
   /**
@@ -18,11 +19,15 @@ export interface AnimatedLogoProps {
    * Custom className for additional styling
    */
   className?: string;
+  /**
+   * Optional click handler for making logo clickable
+   */
+  onClick?: () => void;
 }
 
-export function AnimatedLogo({ size = 'md', showIcon = true, className = '' }: AnimatedLogoProps) {
+export function AnimatedLogo({ size = 'md', showIcon = true, className = '', onClick }: AnimatedLogoProps) {
   const [isAnimating, setIsAnimating] = useState(true);
-  const text = 'NUCLEAR';
+  const text = 'NuClear';
   const letters = text.split('');
 
   useEffect(() => {
@@ -39,28 +44,36 @@ export function AnimatedLogo({ size = 'md', showIcon = true, className = '' }: A
     lg: 'text-2xl sm:text-3xl md:text-4xl',
   };
 
-  const iconSizeClasses = {
-    sm: 'text-xl sm:text-2xl',
-    md: 'text-2xl sm:text-3xl',
-    lg: 'text-3xl sm:text-4xl md:text-5xl',
+  const iconSizes = {
+    sm: 20,
+    md: 24,
+    lg: 32,
   };
 
+  const WrapperTag = onClick ? 'button' : 'div';
+  const wrapperProps = onClick
+    ? {
+        onClick,
+        className: `flex items-center gap-2 ${sizeClasses[size]} ${className} cursor-pointer hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md`,
+      }
+    : {
+        className: `flex items-center gap-2 ${sizeClasses[size]} ${className}`,
+      };
+
   return (
-    <div className={`flex items-center gap-2 ${sizeClasses[size]} ${className}`}>
+    <WrapperTag {...wrapperProps}>
       {showIcon && (
-        <span
-          className={`${iconSizeClasses[size]} ${
-            isAnimating ? 'animate-fade-in-symbol' : ''
-          }`}
+        <div
+          className={`${isAnimating ? 'animate-fade-in-symbol' : ''}`}
           style={{
             animationDelay: '800ms',
           }}
-          aria-label="Nuclear symbol"
+          aria-label="Atom symbol"
         >
-          ⚛
-        </span>
+          <AtomIcon size={iconSizes[size]} className="text-black" />
+        </div>
       )}
-      <span className="font-semibold flex" aria-label="NUCLEAR">
+      <span className="font-semibold flex tracking-tight" aria-label="NuClear">
         {letters.map((letter, index) => (
           <span
             key={index}
@@ -118,6 +131,6 @@ export function AnimatedLogo({ size = 'md', showIcon = true, className = '' }: A
           }
         }
       `}</style>
-    </div>
+    </WrapperTag>
   );
 }
