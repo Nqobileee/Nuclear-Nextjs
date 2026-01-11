@@ -9,6 +9,10 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
+// Demo credentials for testing
+const DEMO_EMAIL = 'demo@nuclear.app'
+const DEMO_PASSWORD = 'demo123456'
+
 export default function LoginPage() {
   const router = useRouter()
   const { login, signUp, resetPassword } = useAuth()
@@ -69,6 +73,13 @@ export default function LoginPage() {
     setIsLoading(false)
   }
 
+  const useDemoCredentials = () => {
+    setEmail(DEMO_EMAIL)
+    setPassword(DEMO_PASSWORD)
+    setError('')
+    setMessage('')
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
@@ -76,6 +87,30 @@ export default function LoginPage() {
           <CardTitle className="text-2xl font-bold font-heading">⚛ NUCLEAR</CardTitle>
           <CardDescription>Nuclear Supply Chain Management</CardDescription>
         </CardHeader>
+        
+        {/* Demo Credentials Info */}
+        <div className="mx-4 mb-4 p-4 bg-muted rounded-lg border">
+          <div className="flex items-start gap-2">
+            <div className="flex-1">
+              <p className="text-sm font-medium mb-2">Demo Credentials</p>
+              <p className="text-xs text-muted-foreground mb-1">
+                <span className="font-medium">Email:</span> {DEMO_EMAIL}
+              </p>
+              <p className="text-xs text-muted-foreground mb-3">
+                <span className="font-medium">Password:</span> {DEMO_PASSWORD}
+              </p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full"
+                onClick={useDemoCredentials}
+                type="button"
+              >
+                Use Demo Credentials
+              </Button>
+            </div>
+          </div>
+        </div>
         
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mx-4" style={{ width: 'calc(100% - 2rem)' }}>
