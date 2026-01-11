@@ -5,72 +5,72 @@
 :root {
   --font-size: 16px;
   
-  /* Pharmacy-Inspired Color Palette (Light Theme Only) */
+  /* NuClear Brand Color Palette */
   
-  /* Primary – Navy (Trust & Authority) */
-  --primary: #083A4F;
+  /* Primary – Clinical Navy Blue (Trust & Scientific Authority) */
+  --primary: #153057;
   --primary-foreground: #ffffff;
   
-  /* Accent – Gold (Quality & Precision) */
-  --accent: #A58D66;
-  --accent-foreground: #083A4F;
+  /* Accent – Refined Gold/Amber (Quality & Precision) */
+  --accent: #c69c6d;
+  --accent-foreground: #153057;
   
-  /* Soft Support – Aqua (Clinical Cleanliness) */
-  --aqua: #C0D5D6;
+  /* Neutral Support – Medical Light Gray */
+  --neutral-gray: #bec1c4;
   
-  /* Secondary Support – Teal (Medical Calm) */
-  --secondary: #407E8C;
-  --secondary-foreground: #ffffff;
+  /* Secondary Support – Medical Light Gray (for secondary text, dividers, UI balance) */
+  --secondary: #bec1c4;
+  --secondary-foreground: #153057;
   
-  /* Base – Sand (Light Neutral Background) */
-  --background: #E5E1DD;
+  /* Base – Soft Clinical White (Clean, Sterile, Modern Canvas) */
+  --background: #F7F9FC;
   
   /* Foreground & Text Colors */
-  --foreground: #083A4F;
-  --muted-foreground: rgba(8, 58, 79, 0.7);
+  --foreground: #153057;
+  --muted-foreground: rgba(21, 48, 87, 0.7);
   
-  /* Card & Surface Colors */
-  --card: #ffffff;
-  --card-foreground: #083A4F;
+  /* Card & Surface Colors – Pure White (Extra Contrast) */
+  --card: #FFFFFF;
+  --card-foreground: #153057;
   
   /* Popover Colors */
-  --popover: #ffffff;
-  --popover-foreground: #083A4F;
+  --popover: #FFFFFF;
+  --popover-foreground: #153057;
   
   /* Muted Backgrounds */
-  --muted: rgba(192, 213, 214, 0.3);
+  --muted: rgba(190, 193, 196, 0.3);
   
   /* Destructive */
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
   
   /* Borders & Inputs */
-  --border: rgba(64, 126, 140, 0.2);
-  --input: #407E8C;
+  --border: rgba(190, 193, 196, 0.4);
+  --input: #bec1c4;
   --input-background: #ffffff;
   
-  /* Focus Ring - Gold */
-  --ring: #A58D66;
+  /* Focus Ring - Refined Gold */
+  --ring: #c69c6d;
   
-  /* Chart Colors - Pharmacy Palette */
-  --chart-1: #083A4F;
-  --chart-2: #407E8C;
-  --chart-3: #A58D66;
-  --chart-4: #C0D5D6;
-  --chart-5: #E5E1DD;
+  /* Chart Colors - NuClear Palette */
+  --chart-1: #153057;
+  --chart-2: #bec1c4;
+  --chart-3: #c69c6d;
+  --chart-4: #F7F9FC;
+  --chart-5: #FFFFFF;
   
   /* Border Radius - More minimal (4-6px) */
   --radius: 0.375rem;
   
   /* Sidebar Colors */
   --sidebar: #ffffff;
-  --sidebar-foreground: #083A4F;
-  --sidebar-primary: #083A4F;
+  --sidebar-foreground: #153057;
+  --sidebar-primary: #153057;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(192, 213, 214, 0.3);
-  --sidebar-accent-foreground: #083A4F;
-  --sidebar-border: rgba(64, 126, 140, 0.2);
-  --sidebar-ring: #A58D66;
+  --sidebar-accent: rgba(190, 193, 196, 0.3);
+  --sidebar-accent-foreground: #153057;
+  --sidebar-border: rgba(190, 193, 196, 0.4);
+  --sidebar-ring: #c69c6d;
   
   /* Font Weights */
   --font-weight-medium: 500;
@@ -127,12 +127,12 @@ html {
   }
   
   .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
-    background-color: #C0D5D6;
+    background-color: #bec1c4;
     border-radius: 3px;
   }
   
   .scrollbar-track-gray-100::-webkit-scrollbar-track {
-    background-color: #E5E1DD;
+    background-color: #F7F9FC;
   }
   
   /* Touch manipulation utility */
