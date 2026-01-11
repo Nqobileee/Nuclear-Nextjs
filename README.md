@@ -17,6 +17,17 @@ If you've connected Supabase via the Vercel integration, these variables should 
 2. Verify that `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are present
 3. Redeploy your application to ensure the variables are picked up
 
+## Demo Credentials
+
+For testing and demonstration purposes, the login page includes pre-configured demo credentials:
+
+- **Email:** `demo@nuclear.app`
+- **Password:** `demo123456`
+
+Click the "Use Demo Credentials" button on the login page to automatically fill in these credentials.
+
+**Note:** The demo user account must exist in your Supabase database for authentication to work. To create the demo user, sign up with these credentials or create it directly in your Supabase dashboard.
+
 ## Development
 
 ```bash
