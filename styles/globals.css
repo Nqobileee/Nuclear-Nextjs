@@ -5,72 +5,79 @@
 :root {
   --font-size: 16px;
   
+  /* Base Colors - NuClear Brand */
+  --nuclear-navy: #153057;
+  --nuclear-gold: #c69c6d;
+  --nuclear-gray: #bec1c4;
+  --nuclear-white-soft: #F7F9FC;
+  --nuclear-white-pure: #FFFFFF;
+  
   /* NuClear Brand Color Palette */
   
   /* Primary – Clinical Navy Blue (Trust & Scientific Authority) */
-  --primary: #153057;
-  --primary-foreground: #ffffff;
+  --primary: var(--nuclear-navy);
+  --primary-foreground: var(--nuclear-white-pure);
   
   /* Accent – Refined Gold/Amber (Quality & Precision) */
-  --accent: #c69c6d;
-  --accent-foreground: #153057;
+  --accent: var(--nuclear-gold);
+  --accent-foreground: var(--nuclear-navy);
   
   /* Neutral Support – Medical Light Gray */
-  --neutral-gray: #bec1c4;
+  --neutral-gray: var(--nuclear-gray);
   
   /* Secondary Support – Medical Light Gray (for secondary text, dividers, UI balance) */
-  --secondary: #bec1c4;
-  --secondary-foreground: #153057;
+  --secondary: var(--nuclear-gray);
+  --secondary-foreground: var(--nuclear-navy);
   
   /* Base – Soft Clinical White (Clean, Sterile, Modern Canvas) */
-  --background: #F7F9FC;
+  --background: var(--nuclear-white-soft);
   
   /* Foreground & Text Colors */
-  --foreground: #153057;
+  --foreground: var(--nuclear-navy);
   --muted-foreground: rgba(21, 48, 87, 0.7);
   
   /* Card & Surface Colors – Pure White (Extra Contrast) */
-  --card: #FFFFFF;
-  --card-foreground: #153057;
+  --card: var(--nuclear-white-pure);
+  --card-foreground: var(--nuclear-navy);
   
   /* Popover Colors */
-  --popover: #FFFFFF;
-  --popover-foreground: #153057;
+  --popover: var(--nuclear-white-pure);
+  --popover-foreground: var(--nuclear-navy);
   
   /* Muted Backgrounds */
   --muted: rgba(190, 193, 196, 0.3);
   
   /* Destructive */
   --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: var(--nuclear-white-pure);
   
   /* Borders & Inputs */
   --border: rgba(190, 193, 196, 0.4);
-  --input: #bec1c4;
-  --input-background: #ffffff;
+  --input: var(--nuclear-gray);
+  --input-background: var(--nuclear-white-pure);
   
   /* Focus Ring - Refined Gold */
-  --ring: #c69c6d;
+  --ring: var(--nuclear-gold);
   
   /* Chart Colors - NuClear Palette */
-  --chart-1: #153057;
-  --chart-2: #bec1c4;
-  --chart-3: #c69c6d;
-  --chart-4: #F7F9FC;
-  --chart-5: #FFFFFF;
+  --chart-1: var(--nuclear-navy);
+  --chart-2: var(--nuclear-gray);
+  --chart-3: var(--nuclear-gold);
+  --chart-4: var(--nuclear-white-soft);
+  --chart-5: var(--nuclear-white-pure);
   
   /* Border Radius - More minimal (4-6px) */
   --radius: 0.375rem;
   
   /* Sidebar Colors */
-  --sidebar: #ffffff;
-  --sidebar-foreground: #153057;
-  --sidebar-primary: #153057;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar: var(--nuclear-white-pure);
+  --sidebar-foreground: var(--nuclear-navy);
+  --sidebar-primary: var(--nuclear-navy);
+  --sidebar-primary-foreground: var(--nuclear-white-pure);
   --sidebar-accent: rgba(190, 193, 196, 0.3);
-  --sidebar-accent-foreground: #153057;
+  --sidebar-accent-foreground: var(--nuclear-navy);
   --sidebar-border: rgba(190, 193, 196, 0.4);
-  --sidebar-ring: #c69c6d;
+  --sidebar-ring: var(--nuclear-gold);
   
   /* Font Weights */
   --font-weight-medium: 500;
@@ -127,12 +134,12 @@ html {
   }
   
   .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
-    background-color: #bec1c4;
+    background-color: var(--nuclear-gray);
     border-radius: 3px;
   }
   
   .scrollbar-track-gray-100::-webkit-scrollbar-track {
-    background-color: #F7F9FC;
+    background-color: var(--nuclear-white-soft);
   }
   
   /* Touch manipulation utility */
