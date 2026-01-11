@@ -8,6 +8,13 @@ import {
     StatCard
 } from '@/models'
 import { combineDateAndTime } from '@/lib/dateUtils'
+import {
+    demoShipments,
+    demoActivities,
+    demoComplianceAlerts,
+    demoDeliveries,
+    demoDashboardStats
+} from '@/lib/demoData'
 
 // --- Data Fetching Functions ---
 
@@ -20,6 +27,12 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         .select('*')
 
     const allShipments = (shipments as Shipment[]) || []
+    
+    // Return demo data if database is empty
+    if (allShipments.length === 0) {
+        return demoDashboardStats
+    }
+    
     const active = allShipments.filter(s => s.status !== 'Delivered')
     const pending = allShipments.filter(s => s.status === 'Pending')
     const urgent = allShipments.filter(s => s.status === 'At Customs')
@@ -111,6 +124,11 @@ export async function getRecentActivity(limit: number = 5): Promise<Activity[]> 
         .order('time', { ascending: false })
         .limit(limit)
 
+    // Return demo data if database is empty
+    if (!data || data.length === 0) {
+        return demoActivities.slice(0, limit)
+    }
+
     // Format time for display if needed, but DB returns ISO string usually.
     // The UI expects a string like "10:30 AM". 
     // We should map the DB results.
@@ -134,11 +152,11 @@ export async function getUpcomingDeliveries(limit: number = 4): Promise<Delivery
     
     if (error) {
         console.error('Failed to fetch upcoming deliveries:', error)
-        return []
+        return demoDeliveries.slice(0, limit)
     }
     
     if (!data || data.length === 0) {
-        return []
+        return demoDeliveries.slice(0, limit)
     }
     
     // Filter out past deliveries and add scheduled_datetime using utility function
@@ -208,6 +226,11 @@ export async function getComplianceAlerts(): Promise<ComplianceAlert[]> {
         .select('*')
         .order('created_at', { ascending: false })
 
+    // Return demo data if database is empty
+    if (!data || data.length === 0) {
+        return demoComplianceAlerts
+    }
+
     return (data as ComplianceAlert[]) || []
 }
 
@@ -219,6 +242,11 @@ export async function getActiveShipments(): Promise<Shipment[]> {
         .select('*')
         .neq('status', 'Delivered')
         .order('created_at', { ascending: false })
+
+    // Return demo data if database is empty
+    if (!data || data.length === 0) {
+        return demoShipments.filter(s => s.status !== 'Delivered')
+    }
 
     return (data as Shipment[]) || []
 }
