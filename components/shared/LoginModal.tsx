@@ -105,7 +105,7 @@ export function LoginModal({ isOpen, onClose, onLogin }: LoginModalProps) {
           {/* Header */}
           <div className="p-6 sm:p-8 pb-4 sm:pb-6">
             <div className="mb-4 sm:mb-6">
-              <AnimatedLogo size="md" showIcon={true} />
+              <AnimatedLogo size="md"  />
             </div>
 
             <h2 id="login-modal-title" className="text-2xl sm:text-3xl mb-2">

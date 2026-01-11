@@ -44,11 +44,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
+    <div className="inner-page min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <AnimatedLogo size="md" showIcon={true} />
+            <AnimatedLogo size="md" />
           </div>
           <CardDescription>Nuclear Supply Chain Management</CardDescription>
         </CardHeader>

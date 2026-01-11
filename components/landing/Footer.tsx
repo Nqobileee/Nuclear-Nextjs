@@ -17,7 +17,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-2">
             <div className="mb-3 sm:mb-4">
-              <AnimatedLogo size="md" showIcon={true} className="text-white" />
+              <AnimatedLogo size="md"  className="text-white" />
             </div>
             <p className="mb-4 sm:mb-6 text-white/70 text-sm sm:text-base max-w-xs">
               Enterprise platform for nuclear medicine supply chain management.

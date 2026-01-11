@@ -45,7 +45,7 @@ export function Hero({ onOpenLogin }: HeroProps) {
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Navigation */}
       <nav className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between relative z-50">
-        <AnimatedLogo size="sm" showIcon={true} />
+        <AnimatedLogo size="sm"  />
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -104,7 +104,7 @@ export function Hero({ onOpenLogin }: HeroProps) {
         <div className="flex flex-col h-full safe-area-inset-top safe-area-inset-bottom">
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between p-4 border-b border-border">
-            <AnimatedLogo size="sm" showIcon={true} />
+            <AnimatedLogo size="sm"  />
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-md hover:bg-muted transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

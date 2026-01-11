@@ -99,7 +99,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <ProtectedRoute>
-      <div className="flex h-screen bg-gray-50 overflow-hidden">
+      <div className="inner-page flex h-screen overflow-hidden">
         {/* Mobile Menu Overlay */}
         {mobileMenuOpen && (
           <div 
@@ -113,16 +113,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <aside 
           className={`${
             sidebarCollapsed ? 'lg:w-[72px]' : 'lg:w-[280px]'
-          } w-[280px] max-w-[85vw] bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-out
+          } w-[280px] max-w-[85vw] bg-card border-r flex flex-col transition-all duration-300 ease-out
           fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
           ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           safe-area-inset-top safe-area-inset-bottom safe-area-inset-left
           `}
+          style={{ borderColor: 'var(--border)' }}
           role="navigation"
           aria-label="Main navigation"
         >
         {/* Logo */}
-        <div className="h-16 flex items-center px-4 sm:px-6 border-b border-gray-200">
+        <div className="h-16 flex items-center px-4 sm:px-6 border-b" style={{ borderColor: 'var(--border)' }}>
           <div className="flex items-center gap-2 flex-1 min-w-0">
             {sidebarCollapsed ? (
               <Link href="/" className="text-2xl flex items-center justify-center p-1 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md" aria-label="Go to home">
@@ -140,7 +141,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </Link>
             ) : (
               <Link href="/" className="block">
-                <AnimatedLogo size="sm" showIcon={true} />
+                <AnimatedLogo size="sm" />
               </Link>
             )}
           </div>
@@ -167,13 +168,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     onClick={closeMobileMenu}
                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all relative touch-manipulation min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset ${
                       isActive
-                        ? 'bg-blue-50 text-blue-600'
-                        : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
+                        ? 'text-primary'
+                        : 'text-foreground hover:bg-muted active:bg-muted'
                     }`}
+                    style={isActive ? { backgroundColor: 'rgba(21, 48, 87, 0.08)' } : {}}
                     aria-current={isActive ? 'page' : undefined}
                   >
                     {isActive && (
-                      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-blue-600 rounded-r"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r" style={{ backgroundColor: 'var(--primary)' }}></div>
                     )}
                     <Icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
                     {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
@@ -185,15 +187,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </nav>
 
         {/* Settings & User Profile */}
-        <div className="border-t border-gray-200 mt-auto">
+        <div className="border-t mt-auto" style={{ borderColor: 'var(--border)' }}>
           <Link
             href="/dashboard/settings"
             onClick={closeMobileMenu}
             className={`w-full flex items-center gap-3 px-4 sm:px-6 py-4 transition-all touch-manipulation min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset ${
               currentPage === 'settings'
-                ? 'bg-blue-50 text-blue-600'
-                : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
+                ? 'text-primary'
+                : 'text-foreground hover:bg-muted active:bg-muted'
             }`}
+            style={currentPage === 'settings' ? { backgroundColor: 'rgba(21, 48, 87, 0.08)' } : {}}
             aria-current={currentPage === 'settings' ? 'page' : undefined}
           >
             <Settings className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
@@ -201,19 +204,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </Link>
 
           {!sidebarCollapsed && (
-            <div className="p-3 sm:p-4 border-t border-gray-200 safe-area-inset-bottom">
+            <div className="p-3 sm:p-4 border-t safe-area-inset-bottom" style={{ borderColor: 'var(--border)' }}>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0" style={{ background: 'linear-gradient(to bottom right, var(--primary), var(--accent))' }}>
                   {userInitials}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm truncate font-medium">{userName}</div>
-                  <div className="text-xs text-gray-500 truncate">{userRole}</div>
+                  <div className="text-sm truncate font-medium" style={{ color: 'var(--foreground)' }}>{userName}</div>
+                  <div className="text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>{userRole}</div>
                 </div>
               </div>
               <button 
                 onClick={handleLogout}
-                className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 active:bg-gray-100 rounded-lg transition-colors touch-manipulation min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors touch-manipulation min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted active:bg-muted"
+                style={{ color: 'var(--foreground)' }}
               >
                 <LogOut className="w-4 h-4" aria-hidden="true" />
                 <span>Logout</span>
@@ -225,7 +229,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Collapse Toggle - Hidden on mobile */}
         <button
           onClick={toggleSidebarCollapse}
-          className="hidden lg:flex absolute top-20 -right-3 w-6 h-6 bg-white border border-gray-200 rounded-full items-center justify-center hover:bg-gray-50 transition-colors z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="hidden lg:flex absolute top-20 -right-3 w-6 h-6 bg-card border rounded-full items-center justify-center transition-colors z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted"
+          style={{ borderColor: 'var(--border)' }}
           aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           <ChevronLeft className={`w-4 h-4 transition-transform ${sidebarCollapsed ? 'rotate-180' : ''}`} aria-hidden="true" />
@@ -235,29 +240,30 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Top Header Bar */}
-        <header className="h-14 sm:h-16 bg-white border-b border-gray-200 flex items-center justify-between px-3 sm:px-4 lg:px-8 flex-shrink-0">
+        <header className="h-14 sm:h-16 bg-card border-b flex items-center justify-between px-3 sm:px-4 lg:px-8 flex-shrink-0" style={{ borderColor: 'var(--border)' }}>
           {/* Mobile Menu Button & Page Title */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 lg:flex-initial">
             <button
               onClick={openMobileMenu}
-              className="lg:hidden p-2 hover:bg-gray-50 active:bg-gray-100 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="lg:hidden p-2 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted active:bg-muted"
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-sidebar"
             >
               <Menu className="w-6 h-6" aria-hidden="true" />
             </button>
-            <h1 className="text-base sm:text-lg lg:text-2xl font-semibold capitalize truncate">{getPageTitle()}</h1>
+            <h1 className="font-heading text-base sm:text-lg lg:text-2xl font-semibold capitalize truncate" style={{ color: 'var(--primary)' }}>{getPageTitle()}</h1>
           </div>
 
           {/* Search Bar - Hidden on mobile, shown on tablet+ */}
           <div className="hidden md:flex flex-1 max-w-md mx-4 lg:mx-8">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} aria-hidden="true" />
               <input
                 type="search"
                 placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent min-h-[44px]"
+                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 min-h-[44px] bg-background"
+                style={{ borderColor: 'var(--border)', color: 'var(--foreground)' }}
               />
             </div>
           </div>
@@ -266,15 +272,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
             {/* Search button for mobile */}
             <button 
-              className="md:hidden p-2 hover:bg-gray-50 active:bg-gray-100 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="md:hidden p-2 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted active:bg-muted"
               aria-label="Search"
             >
-              <Search className="w-5 h-5 text-gray-600" aria-hidden="true" />
+              <Search className="w-5 h-5" style={{ color: 'var(--foreground)' }} aria-hidden="true" />
             </button>
             <NotificationsDropdown />
             <SupportDropdown />
             <button 
-              className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-xs sm:text-sm cursor-pointer touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white text-xs sm:text-sm cursor-pointer touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              style={{ background: 'linear-gradient(to bottom right, var(--primary), var(--accent))' }}
               aria-label={`User menu for ${userName}`}
             >
               {userInitials}
@@ -283,7 +290,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 overflow-auto bg-gray-50 touch-scroll">
+        <main className="flex-1 overflow-auto touch-scroll" style={{ backgroundColor: 'var(--background)' }}>
           <div className="w-full p-3 sm:p-4 lg:p-8">
             {children}
           </div>
