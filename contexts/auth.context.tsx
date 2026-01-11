@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
-import type { User, AuthResult } from '@/models'
+import type { User, AuthResult, UserRole } from '@/models'
 
 // Demo credentials
 const DEMO_EMAIL = 'demo@nuclear.app'
@@ -11,7 +11,6 @@ const AUTH_STORAGE_KEY = 'nuclear_auth_user'
 interface AuthContextValue {
   isAuthenticated: boolean
   user: User | null
-  supabaseUser: null
   isLoading: boolean
   login: (email: string, password: string) => Promise<AuthResult>
   signUp: (email: string, password: string) => Promise<AuthResult>
@@ -92,7 +91,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider value={{
       isAuthenticated: !!user,
       user,
-      supabaseUser: null,
       isLoading,
       login,
       signUp,

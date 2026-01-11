@@ -36,6 +36,12 @@ const tabs: Tab[] = [
   { id: 'notifications', label: 'Notifications', icon: Bell },
 ]
 
+// Helper function to generate email from user name
+function generateUserEmail(userName?: string): string {
+  if (!userName) return 'demo@nuclear.app'
+  return `${userName.toLowerCase().replace(/\s+/g, '.')}@nuclear.app`
+}
+
 export default function SettingsPage() {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = useState<TabId>('profile')
@@ -53,7 +59,7 @@ export default function SettingsPage() {
         const response = await fetch('/api/settings/profile')
         if (response.ok) {
           const data = await response.json()
-          setProfile({ ...data.profile, email: user?.name ? `${user.name.toLowerCase().replace(/\s+/g, '.')}@nuclear.app` : 'demo@nuclear.app' })
+          setProfile({ ...data.profile, email: generateUserEmail(user?.name) })
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error)
