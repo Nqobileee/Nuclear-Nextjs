@@ -97,11 +97,11 @@ export default function ReportsPage() {
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-        <h2 className="text-xl sm:text-2xl">Reports & Analytics</h2>
+        <h2 className="font-heading text-xl sm:text-2xl text-foreground">Reports & Analytics</h2>
         <button 
           onClick={handleExportReport}
           disabled={isExporting}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 self-start text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 self-start text-sm disabled:opacity-50 disabled:cursor-not-allowed font-sans"
         >
           {isExporting ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -113,14 +113,14 @@ export default function ReportsPage() {
       </div>
 
       {/* Report Filters */}
-      <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 mb-6">
+      <div className="bg-card rounded-xl p-4 sm:p-6 border border-border mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <label className="block text-sm mb-2">Report Type</label>
+            <label className="block text-sm mb-2 text-foreground">Report Type</label>
             <select 
               value={reportType}
               onChange={(e) => setReportType(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground"
             >
               <option>Shipment Performance</option>
               <option>Compliance Overview</option>
@@ -129,11 +129,11 @@ export default function ReportsPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm mb-2">Time Period</label>
+            <label className="block text-sm mb-2 text-foreground">Time Period</label>
             <select 
               value={timePeriod}
               onChange={(e) => handleTimePeriodChange(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-input-background text-foreground"
             >
               <option>Last 7 Days</option>
               <option>Last 30 Days</option>
@@ -142,7 +142,7 @@ export default function ReportsPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm mb-2">Start Date</label>
+            <label className="block text-sm mb-2 text-foreground">Start Date</label>
             <DatePicker 
               date={startDate}
               onDateChange={handleStartDateChange}
@@ -151,7 +151,7 @@ export default function ReportsPage() {
             />
           </div>
           <div>
-            <label className="block text-sm mb-2">End Date</label>
+            <label className="block text-sm mb-2 text-foreground">End Date</label>
             <DatePicker 
               date={endDate}
               onDateChange={handleEndDateChange}
@@ -166,7 +166,7 @@ export default function ReportsPage() {
           <button
             onClick={handleGenerateReport}
             disabled={isGenerateDisabled || isLoading}
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed font-sans"
           >
             {isLoading ? (
               <>
@@ -191,7 +191,7 @@ export default function ReportsPage() {
           { label: 'Avg Transit Time', value: '18.5h', change: '-1.2h', color: 'purple' },
           { label: 'Compliance Rate', value: '100%', change: '0%', color: 'green' },
         ].map((metric, index) => (
-          <div key={index} className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
+          <div key={index} className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <div className="text-xs sm:text-sm text-gray-600 mb-2">{metric.label}</div>
             <div className="text-2xl sm:text-3xl mb-2">{metric.value}</div>
             <div className={`text-xs sm:text-sm ${metric.change.startsWith('+') ? 'text-green-600' : metric.change.startsWith('-') && metric.label === 'Avg Transit Time' ? 'text-green-600' : 'text-gray-600'} flex items-center gap-1`}>
@@ -205,8 +205,8 @@ export default function ReportsPage() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mb-6">
-        <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
-          <h3 className="text-base sm:text-lg mb-4">Shipments by Status</h3>
+        <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
+          <h3 className="font-heading text-base sm:text-lg mb-4 text-foreground">Shipments by Status</h3>
           <div className="h-64 flex items-end justify-around gap-2">
             {[
               { label: 'Delivered', value: 85, color: 'bg-green-600' },
@@ -219,15 +219,15 @@ export default function ReportsPage() {
                   className={`w-full ${item.color} rounded-t-lg transition-all hover:opacity-80`}
                   style={{ height: `${item.value}%` }}
                 ></div>
-                <div className="text-sm mt-2 text-center">{item.label}</div>
-                <div className="text-xs text-gray-500">{Math.floor(142 * item.value / 100)}</div>
+                <div className="text-sm mt-2 text-center text-foreground">{item.label}</div>
+                <div className="text-xs text-muted-foreground">{Math.floor(142 * item.value / 100)}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
-          <h3 className="text-base sm:text-lg mb-4">Isotope Distribution</h3>
+        <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
+          <h3 className="font-heading text-base sm:text-lg mb-4 text-foreground">Isotope Distribution</h3>
           <div className="flex items-center justify-center h-48 sm:h-56 lg:h-64">
             <div className="relative w-40 h-40 sm:w-48 sm:h-48">
               {/* Donut Chart Visualization */}
@@ -244,8 +244,8 @@ export default function ReportsPage() {
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-2xl">142</div>
-                  <div className="text-xs text-gray-500">Total</div>
+                  <div className="text-2xl text-foreground">142</div>
+                  <div className="text-xs text-muted-foreground">Total</div>
                 </div>
               </div>
             </div>
@@ -259,8 +259,8 @@ export default function ReportsPage() {
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div className={`w-3 h-3 ${item.color} rounded-full`}></div>
-                <span className="text-sm">{item.label}</span>
-                <span className="text-sm text-gray-500 ml-auto">{item.percent}</span>
+                <span className="text-sm text-foreground">{item.label}</span>
+                <span className="text-sm text-muted-foreground ml-auto">{item.percent}</span>
               </div>
             ))}
           </div>
@@ -268,8 +268,8 @@ export default function ReportsPage() {
       </div>
 
       {/* Activity Trends */}
-      <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200">
-        <h3 className="text-base sm:text-lg mb-4">Shipment Activity Trends (Last 30 Days)</h3>
+      <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
+        <h3 className="font-heading text-base sm:text-lg mb-4 text-foreground">Shipment Activity Trends (Last 30 Days)</h3>
         <div className="h-48 sm:h-56 lg:h-64 flex items-end gap-1">
           {Array.from({ length: 30 }).map((_, i) => {
             const height = 30 + Math.random() * 70;
@@ -286,7 +286,7 @@ export default function ReportsPage() {
             );
           })}
         </div>
-        <div className="flex justify-between text-xs text-gray-500 mt-2">
+        <div className="flex justify-between text-xs text-muted-foreground mt-2">
           <span>30 days ago</span>
           <span>Today</span>
         </div>

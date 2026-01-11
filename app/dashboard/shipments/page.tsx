@@ -77,17 +77,17 @@ export default function ShipmentsPage() {
       <div>
         <button 
           onClick={() => setSelectedShipment(null)}
-          className="mb-6 text-purple-600 hover:text-purple-700 flex items-center gap-2"
+          className="mb-6 text-primary hover:text-primary/90 flex items-center gap-2"
         >
           ← Back to Shipments
         </button>
 
         {/* Header Section */}
-        <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 mb-6">
+        <div className="bg-card rounded-xl p-4 sm:p-6 border border-border mb-6">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-mono mb-2">{shipment.id}</h2>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600">
+              <h2 className="font-heading text-2xl sm:text-3xl font-mono mb-2 text-foreground">{shipment.id}</h2>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                 <span><strong>Isotope:</strong> {shipment.isotope}</span>
                 <span><strong>Batch:</strong> {shipment.batch}</span>
                 <span className={`px-3 py-1 rounded-full ${shipment.statusColor} self-start`}>
@@ -96,14 +96,14 @@ export default function ShipmentsPage() {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
-              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+              <button className="px-4 py-2 border border-input rounded-lg hover:bg-muted transition-colors text-sm">
                 Re-route
               </button>
-              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm">
+              <button className="px-4 py-2 border border-input rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2 text-sm">
                 <Phone className="w-4 h-4" />
                 Contact Carrier
               </button>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm">
+              <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 text-sm">
                 <Download className="w-4 h-4" />
                 Documents
               </button>
@@ -127,7 +127,7 @@ export default function ShipmentsPage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`py-4 border-b-2 transition-colors ${
                     activeTab === tab.id
-                      ? 'border-purple-600 text-purple-600'
+                      ? 'border-purple-600 text-primary'
                       : 'border-transparent text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -154,7 +154,7 @@ export default function ShipmentsPage() {
                     </svg>
                   </div>
                   <div className="relative">
-                    <MapPin className="w-16 h-16 text-purple-600" fill="currentColor" />
+                    <MapPin className="w-16 h-16 text-primary" fill="currentColor" />
                   </div>
                 </div>
 
@@ -197,7 +197,7 @@ export default function ShipmentsPage() {
                       <p className="text-sm text-gray-600">Real-time activity monitoring</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-3xl text-purple-600">{shipment.activity}%</div>
+                      <div className="text-3xl text-primary">{shipment.activity}%</div>
                       <div className="text-sm text-gray-600">Current Activity</div>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default function ShipmentsPage() {
                             style={{ height: `${height}%` }}
                           ></div>
                           {isCurrentPosition && (
-                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded whitespace-nowrap">
                               Current: {shipment.activity}%
                             </div>
                           )}
@@ -238,7 +238,7 @@ export default function ShipmentsPage() {
                   </div>
                   <div className="bg-white border border-gray-200 rounded-lg p-4">
                     <div className="text-sm text-gray-600 mb-1">Current Activity</div>
-                    <div className="text-2xl text-purple-600">425 mCi</div>
+                    <div className="text-2xl text-primary">425 mCi</div>
                   </div>
                   <div className="bg-white border border-gray-200 rounded-lg p-4">
                     <div className="text-sm text-gray-600 mb-1">Expected at Arrival</div>
@@ -260,14 +260,14 @@ export default function ShipmentsPage() {
                   <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <Download className="w-5 h-5 text-purple-600" />
+                        <Download className="w-5 h-5 text-primary" />
                       </div>
                       <div>
                         <div className="font-medium">{doc.name}</div>
                         <div className={`text-sm ${doc.color}`}>{doc.status}</div>
                       </div>
                     </div>
-                    <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button className="px-4 py-2 bg-white border border-input rounded-lg hover:bg-muted transition-colors">
                       Download
                     </button>
                   </div>
@@ -303,9 +303,9 @@ export default function ShipmentsPage() {
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg">Radiation Level</h3>
-                    <Activity className="w-5 h-5 text-purple-600" />
+                    <Activity className="w-5 h-5 text-primary" />
                   </div>
-                  <div className="text-4xl mb-2 text-purple-600">0.12 mSv</div>
+                  <div className="text-4xl mb-2 text-primary">0.12 mSv</div>
                   <div className="text-sm text-green-600 mb-4">Normal levels</div>
                   <div className="h-32 flex items-end gap-1">
                     {Array.from({ length: 24 }).map((_, i) => {
@@ -348,7 +348,7 @@ export default function ShipmentsPage() {
                     </div>
                     <div className="flex items-center justify-between">
                       <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">{log.hash}</code>
-                      <button className="text-sm text-purple-600 hover:text-purple-700">
+                      <button className="text-sm text-primary hover:text-purple-700">
                         Verify on Chain →
                       </button>
                     </div>
@@ -366,12 +366,12 @@ export default function ShipmentsPage() {
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-        <h2 className="text-xl sm:text-2xl">Shipments & Logistics</h2>
+        <h2 className="font-heading text-xl sm:text-2xl text-foreground">Shipments & Logistics</h2>
         <div className="flex items-center gap-2">
           <button 
             onClick={() => setViewType('list')}
             className={`p-2 rounded-lg transition-colors ${
-              viewType === 'list' ? 'bg-purple-100 text-purple-600' : 'hover:bg-gray-100'
+              viewType === 'list' ? 'bg-purple-100 text-primary' : 'hover:bg-gray-100'
             }`}
           >
             <List className="w-5 h-5" />
@@ -379,7 +379,7 @@ export default function ShipmentsPage() {
           <button 
             onClick={() => setViewType('map')}
             className={`p-2 rounded-lg transition-colors ${
-              viewType === 'map' ? 'bg-purple-100 text-purple-600' : 'hover:bg-gray-100'
+              viewType === 'map' ? 'bg-purple-100 text-primary' : 'hover:bg-gray-100'
             }`}
           >
             <Map className="w-5 h-5" />
@@ -387,7 +387,7 @@ export default function ShipmentsPage() {
           <button 
             onClick={() => setViewType('kanban')}
             className={`p-2 rounded-lg transition-colors ${
-              viewType === 'kanban' ? 'bg-purple-100 text-purple-600' : 'hover:bg-gray-100'
+              viewType === 'kanban' ? 'bg-purple-100 text-primary' : 'hover:bg-gray-100'
             }`}
           >
             <LayoutGrid className="w-5 h-5" />
@@ -402,21 +402,21 @@ export default function ShipmentsPage() {
           <input 
             type="text" 
             placeholder="Search shipments..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
           />
         </div>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
-          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
             <option>All Statuses</option>
             <option>Dispatched</option>
             <option>In Transit</option>
             <option>At Customs</option>
             <option>Delivered</option>
           </select>
-          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+          <select className="px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
             <option>All Isotopes</option>
           </select>
-          <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+          <button className="px-4 py-2 border border-input rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2">
             <Filter className="w-4 h-4" />
             More Filters
           </button>
@@ -445,18 +445,18 @@ export default function ShipmentsPage() {
               {shipments.map((shipment) => (
                 <tr 
                   key={shipment.id} 
-                  className="hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="hover:bg-muted transition-colors cursor-pointer"
                   onClick={() => setSelectedShipment(shipment.id)}
                 >
-                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-mono text-purple-600">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-mono text-primary">
                     {shipment.id}
                   </td>
                   <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">{shipment.isotope}</td>
                   <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-mono">{shipment.batch}</td>
-                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-foreground">
                     {shipment.origin} → {shipment.destination}
                   </td>
-                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">{shipment.carrier}</td>
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-foreground">{shipment.carrier}</td>
                   <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
                     <span className={`px-2 sm:px-3 py-1 rounded-full text-xs ${shipment.statusColor}`}>
                       {shipment.status}
@@ -477,7 +477,7 @@ export default function ShipmentsPage() {
                       <span className="text-xs sm:text-sm">{shipment.activity}%</span>
                     </div>
                   </td>
-                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">{shipment.eta}</td>
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-foreground">{shipment.eta}</td>
                 </tr>
               ))}
             </tbody>
@@ -495,7 +495,7 @@ export default function ShipmentsPage() {
               >
                 <MobileTableCardRow 
                   label="ID" 
-                  value={<span className="font-mono text-xs text-purple-600">{shipment.id}</span>} 
+                  value={<span className="font-mono text-xs text-primary">{shipment.id}</span>} 
                 />
                 <MobileTableCardRow 
                   label="Isotope" 
