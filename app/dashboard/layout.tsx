@@ -278,7 +278,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               aria-label={`User menu for ${userName}`}
             >
               {userInitials}
-            </Link>
+            </button>
           </div>
         </header>
 
