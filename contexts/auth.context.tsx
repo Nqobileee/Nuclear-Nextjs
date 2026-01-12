@@ -82,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const newUser: User = {
       id: `user-${Date.now()}`,
       name: name || 'User',
-      role: 'User',
+      role: 'Hospital Administrator',
       initials: generateInitials(name || 'User')
     }
     
