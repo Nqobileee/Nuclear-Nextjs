@@ -38,6 +38,7 @@ const navigationItems: NavigationItem[] = [
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const { user, logout } = useAuth()
@@ -46,6 +47,24 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const openMobileMenu = () => setMobileMenuOpen(true)
   const closeMobileMenu = () => setMobileMenuOpen(false)
   const toggleSidebarCollapse = () => setSidebarCollapsed(!sidebarCollapsed)
+  const toggleSearch = () => setSearchOpen(!searchOpen)
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const query = formData.get('search') as string
+    if (query?.trim()) {
+      // TODO: Implement full search functionality with backend API
+      // This should search across shipments, procurement, and compliance data
+      console.log('Searching for:', query)
+    }
+  }
+  const handleMobileSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSearchSubmit(e)
+    toggleSearch()
+  }
+  const handleNavigateToSettings = () => {
+    router.push('/dashboard/settings')
+  }
   
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -257,21 +276,23 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
           {/* Search Bar - Hidden on mobile, shown on tablet+ */}
           <div className="hidden md:flex flex-1 max-w-md mx-4 lg:mx-8">
-            <div className="relative w-full">
+            <form onSubmit={handleSearchSubmit} className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} aria-hidden="true" />
               <input
                 type="search"
+                name="search"
                 placeholder="Search..."
                 className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 min-h-[44px] bg-background"
                 style={{ borderColor: 'var(--border)', color: 'var(--foreground)' }}
               />
-            </div>
+            </form>
           </div>
 
           {/* Right Actions */}
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
             {/* Search button for mobile */}
             <button 
+              onClick={toggleSearch}
               className="md:hidden p-2 rounded-lg transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted active:bg-muted"
               aria-label="Search"
             >
@@ -280,6 +301,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <NotificationsDropdown />
             <SupportDropdown />
             <button 
+              onClick={handleNavigateToSettings}
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white text-xs sm:text-sm cursor-pointer touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               style={{ background: 'linear-gradient(to bottom right, var(--primary), var(--accent))' }}
               aria-label={`User menu for ${userName}`}
@@ -288,6 +310,33 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </button>
           </div>
         </header>
+
+        {/* Mobile Search Overlay */}
+        {searchOpen && (
+          <div className="md:hidden fixed inset-0 z-50 bg-background p-4">
+            <div className="flex items-center gap-3 mb-4">
+              <button
+                onClick={toggleSearch}
+                className="p-2 rounded-lg transition-colors"
+                aria-label="Close search"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <form onSubmit={handleMobileSearchSubmit} className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" aria-hidden="true" />
+                  <input
+                    type="search"
+                    name="search"
+                    placeholder="Search..."
+                    autoFocus
+                    className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 bg-background text-foreground"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Content Area */}
         <main className="flex-1 overflow-auto touch-scroll" style={{ backgroundColor: 'var(--background)' }}>
