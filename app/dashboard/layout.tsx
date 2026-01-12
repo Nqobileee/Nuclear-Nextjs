@@ -53,10 +53,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     const formData = new FormData(e.currentTarget)
     const query = formData.get('search') as string
     if (query?.trim()) {
-      // TODO: Implement search functionality
+      // TODO: Implement full search functionality with backend API
+      // This should search across shipments, procurement, and compliance data
       console.log('Searching for:', query)
-      // For now, just log the search query
     }
+  }
+  const handleMobileSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSearchSubmit(e)
+    toggleSearch()
   }
   const handleNavigateToSettings = () => {
     router.push('/dashboard/settings')
@@ -318,10 +322,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               >
                 <X className="w-6 h-6" />
               </button>
-              <form onSubmit={(e) => {
-                handleSearchSubmit(e)
-                toggleSearch()
-              }} className="flex-1">
+              <form onSubmit={handleMobileSearchSubmit} className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" aria-hidden="true" />
                   <input
