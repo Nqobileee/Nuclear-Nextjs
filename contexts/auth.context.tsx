@@ -72,9 +72,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return { success: false, error: 'Invalid credentials. Please use the demo account.' }
   }, [])
 
-  const signUp = useCallback(async (email: string, password: string): Promise<AuthResult> => {
-    // Sign up is not supported in demo mode
-    return { success: false, error: 'Sign up is not available in demo mode. Please use the demo credentials.' }
+  const signUp = useCallback(async (email: string, password: string = ''): Promise<AuthResult> => {
+    // In demo mode, sign up only requires email
+    // Create a user account without password requirement
+    const name = email.split('@')[0].split('.').map(part => 
+      part.charAt(0).toUpperCase() + part.slice(1)
+    ).join(' ')
+    
+    const newUser: User = {
+      id: `user-${Date.now()}`,
+      name: name || 'User',
+      role: 'User',
+      initials: generateInitials(name || 'User')
+    }
+    
+    setUser(newUser)
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(newUser))
+    return { success: true, user: newUser }
   }, [])
 
   const logout = useCallback(async () => {

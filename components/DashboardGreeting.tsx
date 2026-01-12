@@ -51,7 +51,7 @@ export default function DashboardGreeting() {
   }, [])
 
   // Use authenticated user's name or fallback to default
-  const userName = user?.name || 'Dr. Sarah Johnson'
+  const userName = user?.name || 'Demo User'
 
   const handleNewProcurement = () => {
     router.push('/dashboard/procurement?view=form')
@@ -67,7 +67,7 @@ export default function DashboardGreeting() {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-primary to-secondary rounded-xl p-4 sm:p-6 lg:p-8 text-white">
+      <div className="rounded-xl p-4 sm:p-6 lg:p-8 text-white" style={{ backgroundColor: '#153057' }}>
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <h2 className="text-xl sm:text-2xl lg:text-3xl mb-2">

@@ -160,24 +160,26 @@ export function LoginModal({ isOpen, onClose, onLogin }: LoginModalProps) {
               </div>
 
               {/* Password Input */}
-              <div>
-                <label htmlFor="password" className="block text-sm mb-1.5 sm:mb-2 text-gray-700">
-                  Password
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-gray-400" />
-                  <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all text-base touch-manipulation"
-                    required
-                    autoComplete={isSignUp ? 'new-password' : 'current-password'}
-                  />
+              {!isSignUp && (
+                <div>
+                  <label htmlFor="password" className="block text-sm mb-1.5 sm:mb-2 text-gray-700">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-gray-400" />
+                    <input
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all text-base touch-manipulation"
+                      required
+                      autoComplete="current-password"
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Forgot Password */}
               {!isSignUp && (
